@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Stepper from '../ui/Stepper';
 import { AppContext } from '@/context/AppContext';
@@ -24,6 +24,13 @@ const ParentForm = () => {
     return null;
   }
   const { setForm, contractor } = appContext;
+  const [slug, setSlug] = useState('');
+  
+  useEffect(() => {
+    if (appContext && appContext.contractor) {
+      setSlug(appContext.contractor.slug);
+    }
+  }, [appContext, appContext.contractor]);
 
   const navigateWithParams = (path: string) => {
     const currentParams = new URLSearchParams(location.search);
@@ -63,7 +70,7 @@ const ParentForm = () => {
   };
 
   const handleSubmitted = () => {
-    navigateWithParams('/');
+    navigateWithParams(`/${slug}`);
     resetCurrentStep();
     clearFormState();
 

@@ -21,6 +21,13 @@ const RequestQuote = () => {
   if (!appContext) {
     return null;
   }
+  const [slug, setSlug] = useState('');
+
+  useEffect(() => {
+    if (appContext && appContext.contractor) {
+      setSlug(appContext.contractor.slug);
+    }
+  }, [appContext, appContext.contractor]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -41,12 +48,16 @@ const RequestQuote = () => {
   const handleLeave = () => {
     posthog.capture('page_exit test in request',);
     const params = window.location.search;
-    window.location.href = '/' + params;
+    window.location.href = `/${slug}` + params;
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  if (!appContext.contractor) {
+    return null;
+  }
 
   return (
     <div>

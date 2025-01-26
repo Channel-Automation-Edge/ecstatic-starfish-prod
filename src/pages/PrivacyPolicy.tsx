@@ -7,7 +7,7 @@ import { AppContext } from '@/context/AppContext';
 
 const PrivacyPolicy = () => {
   const appContext = useContext(AppContext);
-    if (!appContext) {
+    if (!appContext || !appContext.contractor) {
       return null; 
     }
   return (

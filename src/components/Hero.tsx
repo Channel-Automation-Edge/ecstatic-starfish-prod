@@ -22,6 +22,14 @@ const Hero = () => {
   const firstnameParam = urlParams.get('firstname') || '';
   const stateParam = urlParams.get('state') || '';
   const zipParam = urlParams.get('zip') || '';
+  const [slug, setSlug] = useState('');
+
+  useEffect(() => {
+    if (appContext && appContext.contractor) {
+      setSlug(appContext.contractor.slug);
+    }
+  }, [appContext, appContext.contractor]);
+
 
   // Default content
   const defaultH1 = "Instant Everything, Incredible Pricing";
@@ -105,7 +113,7 @@ const Hero = () => {
       zip: zip,  // Save the zip code to the user context
     }));
 
-    navigateWithParams('/request-quotes');
+    navigateWithParams(`/request-quotes/${slug}`);
   };
 
   const handleZipChange = (event: React.ChangeEvent<HTMLInputElement>) => {

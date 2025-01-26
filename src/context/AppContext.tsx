@@ -12,17 +12,18 @@ interface UserData {
   phone: string | null;
   state: string | null;
   userNs: string | null;
+  timezone: string | null;
 }
 
 interface FormData {
   formId: string | null;
   serviceSpecification: string | null;
-  promo: string;
+  promo: string | null;
   generalOptIn: boolean;
   termsAndPrivacyOptIn: boolean;
   date: string | null;
   time: string | null;
-  contactPreferences: string[];
+  isBooked: boolean;
 }
 
 interface AppContextType {
@@ -70,17 +71,18 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
     phone: null,
     state: null,
     userNs: null,
+    timezone: null,
   });
 
   const [form, setForm] = useState<FormData>({
     formId: null,
     serviceSpecification: null,
-    promo: '',
+    promo: null,
     generalOptIn: false,
     termsAndPrivacyOptIn: false,
     date: null,
     time: null,
-    contactPreferences: [],
+    isBooked: false,
   });
 
   const [selectedService, setSelectedService] = useState<any>(null);
@@ -88,11 +90,10 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
   const [services, setServices] = useState<any>(null);
   const [locations, setLocations] = useState<any>(null);
 
-  // Initialize userNs from URL parameters
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    setUser(prevUser => ({ ...prevUser, userNs: params.get('user_ns') }));
-  }, [location.search]);
+useEffect(() => {
+  const params = new URLSearchParams(location.search);
+  setUser(prevUser => ({ ...prevUser, userNs: params.get('user_ns') }));
+}, [location.search]);
 
   // Initialize cookiesAccepted from local storage
   useEffect(() => {
@@ -142,7 +143,7 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
     localStorage.setItem('contractor', JSON.stringify(contractor));
     localStorage.setItem('services', JSON.stringify(services));
     localStorage.setItem('locations', JSON.stringify(locations));
-  }, [user, form, selectedService, contractor, services, locations]);
+  }, [user, form, selectedService, contractor, services, locations]);  
 
   return (
     <AppContext.Provider

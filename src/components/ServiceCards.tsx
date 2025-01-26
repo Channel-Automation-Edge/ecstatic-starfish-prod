@@ -25,6 +25,13 @@ const ServiceCards: React.FC = () => {
 
   const [showZipInput, setShowZipInput] = useState<boolean>(true);
   const [buttonText, setButtonText] = useState<string>("");
+  const [slug, setSlug] = useState('');
+
+  useEffect(() => {
+    if (appContext && appContext.contractor) {
+      setSlug(appContext.contractor.slug);
+    }
+  }, [appContext, appContext.contractor]);
 
 
   // Update button text based on form progress
@@ -67,7 +74,7 @@ const ServiceCards: React.FC = () => {
       zip: zip,  // Save the zip code to the user context
     }));
 
-    navigateWithParams('/request-quotes');
+    navigateWithParams(`/request-quotes/${slug}`);
   };
 
   const handleZipChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -8,9 +8,9 @@ import { AppContext } from '@/context/AppContext';
 
 const CookiePolicy = () => {
   const appContext = useContext(AppContext);
-    if (!appContext) {
-      return null; 
-    }
+  if (!appContext || !appContext.contractor) {
+    return null; 
+  }
   return (
     <div className="bg-gray-100">
       <NavBar2 />

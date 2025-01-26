@@ -59,7 +59,7 @@ const Step3Specifications: React.FC<Step3SpecificationsProps> = ({ onNext, onBac
 
         <div className="mt-12 flex flex-col h-full">
           <div className="flex flex-wrap justify-center gap-4 sm:gap-[20px]" style={{ marginTop: '15px', width: '100%' }}>
-            {["Repair", "Remodel", "Installation"].map((spec) => (
+            {["Repair", "Remodel"].map((spec) => (
               <button
                 key={spec}
                 type="button"

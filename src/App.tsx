@@ -19,14 +19,15 @@ declare global {
 function App() {
   const location = useLocation();
   const appContext = useContext(AppContext);
-  const [loading, setLoading] = useState(true); // State to control rendering
+  const [loading, setLoading] = useState(false); // State to control rendering
+  const params = new URLSearchParams(location.search);
+  const companyId = params.get('company_id');
 
   if (!appContext) {
     return null;
   }
 
-  const { setContractor, setServices, setLocations } = appContext;
-  const companyId = import.meta.env.VITE_COMPANY_ID; // Access VITE_COMPANY_ID
+  const { setContractor, setServices, setLocations, contractor, user, setUser } = appContext;
 
   useEffect(() => {
     window.HSStaticMethods.autoInit();
@@ -99,11 +100,60 @@ function App() {
     fetchInitialData();
   }, []);
 
-  // log in console
+  // fetch zip if user.zip is present or changed
+  useEffect(() => {
+    const fetchZip = async () => {
+      if (user.zip) {
+        try {
+          const { data, error } = await central
+            .from('zips')
+            .select('*')
+            .eq('zip', user.zip)
+            .single();
+
+          if (error) {
+            console.error('Error fetching zip:', error);
+          } else {
+            setUser(prevUser => ({
+              ...prevUser,
+              city: data.city,
+              state: data.state_id,
+              timezone: data.timezone,
+            }));
+          }
+        } catch (err) {
+          console.error('Unexpected error:', err);
+        }
+      }
+    };
+
+    fetchZip();
+  }, [user.zip]);
+
+  useEffect(() => {
+    if (contractor) {
+      // Update the document title
+      document.title = contractor.name;
+
+      // Update the favicon
+      const favicon = document.querySelector("link[rel~='icon']") as HTMLLinkElement | null;
+      if (favicon) {
+        favicon.href = contractor.favicon;
+      } else {
+        const newFavicon = document.createElement('link');
+        newFavicon.rel = 'icon';
+        newFavicon.href = contractor.favicon;
+        document.head.appendChild(newFavicon);
+      }
+    }
+  }, [contractor]);
+
   useEffect(() => {
     console.log('contractor', appContext.contractor);
     console.log('services', appContext.services);
     console.log('locations', appContext.locations);
+    console.log('form', appContext.form);
+    console.log('user', appContext.user);
   }
   , [appContext]);
 
@@ -124,15 +174,16 @@ function App() {
   if (loading) {
     return null; // Render nothing while loading
   }
-
+  
   return (
     <>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/:slug' element={<Home />} />
+        <Route path='/request-quotes/:slug' element={<RequestQuote />} />
         <Route path='/request-quotes' element={<RequestQuote />} />
-        <Route path='/cookie-policy' element={<CookiePolicy />} />
-        <Route path='/privacy-policy' element={<PrivacyPolicy />} />
-        <Route path="*" element={<Home />} />
+        <Route path='/cookie-policy/:slug' element={<CookiePolicy />} />
+        <Route path='/privacy-policy/:slug' element={<PrivacyPolicy />} />
+        {/* <Route path="*" element={<RequestQuote />} /> */}
       </Routes>
     </>
   );

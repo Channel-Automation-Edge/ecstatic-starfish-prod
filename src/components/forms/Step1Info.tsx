@@ -30,18 +30,23 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
     onBack();
   };
 
+  const capitalizeWords = (str: string | null) => {
+    if (!str) return '';
+    return str.replace(/\b\w/g, char => char.toUpperCase());
+  };
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const initialPhone = user.phone || params.get('phone');
     const numericPhone = initialPhone ? initialPhone.replace(/\D/g, '') : '';
     formik.setValues({
-      firstname: user.firstname || params.get('firstname') || '',
-      lastname: user.lastname || params.get('lastname') || '',
+      firstname: user.firstname || capitalizeWords(params.get('firstname')) || '',
+      lastname: user.lastname || capitalizeWords(params.get('lastname')) || '',
       zip: user.zip || '', // Default to user.zip
       state: user.state || params.get('state') || '', // Default to URL parameter state or empty
-      address1: user.address1 || params.get('address1') || '',
-      address2: user.address2 || params.get('address2') || '',
-      city: user.city || params.get('city') || '',
+      address1: user.address1 || capitalizeWords(params.get('address1')) || '',
+      address2: user.address2 || capitalizeWords(params.get('address2')) || '',
+      city: user.city || capitalizeWords(params.get('city')) || '',
       email: user.email || params.get('email') || '',
       phone: initialPhone ? `+1${numericPhone}` : '',
       termsAndPrivacyOptIn: form.termsAndPrivacyOptIn || false,
@@ -89,11 +94,11 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
         state: values.state,
         email: values.email,
         phone: rawPhone,
-        firstname: values.firstname,
-        lastname: values.lastname,
-        address1: values.address1,
-        address2: values.address2,
-        city: values.city,
+        firstname: capitalizeWords(values.firstname),
+        lastname: capitalizeWords(values.lastname),
+        address1: capitalizeWords(values.address1),
+        address2: capitalizeWords(values.address2),
+        city: capitalizeWords(values.city), 
       }));
 
       setForm((prevForm) => ({
@@ -106,6 +111,15 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
     },
   });
 
+  useEffect(() => {
+    // Trigger validation on initial mount and when form values change
+    const validateFields = async () => {
+      await formik.validateForm();  // Trigger validation
+    };
+  
+    validateFields();
+  }, [formik.values]); // Run effect on form values change
+
   return (
     <div className="z-10 max-w-[100rem] px-4 lg:px-14 py-10 lg:py-14 mx-auto relative">
       <div className="absolute top-[-102px] custom-smallest:top-[-110px] small-stepper:top-[-115px] sm:top-[-121px] md:top-[-137px] left-0 w-full flex justify-between p-4">
@@ -117,7 +131,7 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
         <div className='flex justify-center text-center mb-8'>
           <div className="max-w-[40rem] text-center">
             <h1 className="block text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl font-bold sm:font-bold md:font-semibold lg:font-semibold text-gray-800 dark:text-white">
-            Please <span className="text-accentColor">confirm your information</span> so we can get everything ready for your project
+            Great! Let’s <span className="text-accentColor">confirm </span> your contact details
             </h1>
           </div>
         </div>

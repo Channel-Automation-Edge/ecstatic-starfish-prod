@@ -22,16 +22,15 @@ const Step2Schedule: React.FC<Step2ScheduleProps> = ({ onNext, onReset, onBack }
   }
 
   const { form, setForm, contractor } = appContext;
-  const [date, setDate] = useState<Date | undefined>();
   const [loading, setLoading] = useState<boolean>(false); // State to control spinner
 
   const timeSlots = contractor.time_slots && contractor.time_slots.length > 0
     ? contractor.time_slots
-    : ['10am', '11am', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
+    : ['10:00 AM', '11:00 AM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM'];
 
   const formik = useFormik({
     initialValues: {
-      date: form.date || '',
+      date: form.date || '', 
       time: form.time || '',
     },
     validate: (values) => {
@@ -60,14 +59,29 @@ const Step2Schedule: React.FC<Step2ScheduleProps> = ({ onNext, onReset, onBack }
 
   const handleDateChange = (date: Date | undefined) => {
     if (date) {
-      setDate(date);
       const formattedDate = format(date, 'yyyy-MM-dd');
       formik.setFieldValue('date', formattedDate);
     }
   };
+  
+  const [rawTime, setRawTime] = useState<string>('');
 
   const handleTimeSelect = (time: string) => {
-    formik.setFieldValue('time', time);
+    // Convert time to military format
+    setRawTime(time);
+    const timeMapping: Record<string, string> = {
+      '10:00 AM': '10:00',
+      '11:00 AM': '11:00',
+      '1:00 PM': '13:00',
+      '2:00 PM': '14:00',
+      '3:00 PM': '15:00',
+      '4:00 PM': '16:00',
+      '5:00 PM': '17:00',
+      '6:00 PM': '18:00',
+      '7:00 PM': '19:00',
+      '8:00 PM': '20:00',
+    };
+    formik.setFieldValue('time', timeMapping[time]);
   };
 
   return (
@@ -80,8 +94,8 @@ const Step2Schedule: React.FC<Step2ScheduleProps> = ({ onNext, onReset, onBack }
         <div className='flex justify-center text-center mb-8'>
           <div className="max-w-[40rem] text-center">
             <h1 className="block text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl font-bold sm:font-bold md:font-semibold lg:font-semibold text-gray-800 dark:text-white">
-              Great! Let's  
-              <span className="text-accentColor">schedule your consultation</span>—pick a date and time for an expert to visit you for your quote
+            Pick a  
+            <span className="text-accentColor"> date and time</span> that works for you
             </h1>
           </div>
         </div>
@@ -96,7 +110,7 @@ const Step2Schedule: React.FC<Step2ScheduleProps> = ({ onNext, onReset, onBack }
                 <div className="rounded-lg small-stepper:border small-stepper:border-gray-300 small-stepper:p-4 small-stepper:shadow-xl sm:p-6 lg:p-8 small-stepper:bg-white">
                   <Calendar
                     mode="single"
-                    selected={date}
+                    selected={formik.values.date ? new Date(formik.values.date) : undefined}
                     onSelect={handleDateChange}
                     initialFocus
                     modifiers={{
@@ -121,8 +135,8 @@ const Step2Schedule: React.FC<Step2ScheduleProps> = ({ onNext, onReset, onBack }
                   <button
                     key={time}
                     type="button"
-                    className={`py-3 px-4 w-20 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-300  ${
-                      formik.values.time === time ? 'bg-accentColor text-white border-accentColor hover:bg-accentColor' : 'bg-white text-gray-800 hover:bg-gray-100'
+                    className={`py-3 px-4 w-28 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-300  ${
+                      rawTime === time ? 'bg-accentColor text-white border-accentColor hover:bg-accentColor' : 'bg-white text-gray-800 hover:bg-gray-100'
                     }`}
                     onClick={() => handleTimeSelect(time)}
                   >
