@@ -125,7 +125,7 @@ const Hero = () => {
 
   return (
     <div>
-      <div className="relative h-96">
+      <div className="relative h-96 flex items-center">
         <div className="absolute inset-0">
           <video
             autoPlay
