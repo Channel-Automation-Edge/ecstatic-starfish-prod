@@ -33,7 +33,7 @@ const NavBar2 = () => {
             <div className="md:flex md:items-center md:gap-12 ">
               <a className="block text-accent" href={newUrl}>
                 <span className="sr-only">Home</span>
-                <img src={logoSrc} alt="Logo" className="h-12 sm:h-14 lg:h-16 rounded-full" />
+                <img src={logoSrc} alt="Logo" className="h-12 sm:h-14 lg:h-16" />
               </a>
             </div>
             <div className="flex items-center gap-4">
