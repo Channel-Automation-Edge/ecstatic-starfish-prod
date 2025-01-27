@@ -28,12 +28,12 @@ const NavBar2 = () => {
   return (
     <div className="">
       <header className="">
-        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6">
           <div className="flex h-20 sm:h-28 items-center justify-between">
             <div className="md:flex md:items-center md:gap-12 ">
               <a className="block text-accent" href={newUrl}>
                 <span className="sr-only">Home</span>
-                <img src={logoSrc} alt="Logo" className="h-8 sm:h-14 lg:h-16" />
+                <img src={logoSrc} alt="Logo" className="h-full max-h-20 sm:max-h-28 max-w-48 sm:max-w-72" />
               </a>
             </div>
             <div className="flex items-center gap-4">
