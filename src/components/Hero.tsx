@@ -143,7 +143,7 @@ const Hero = () => {
           
           <div className="z-10 sm:w-8/12 flex items-left justify-left flex-col px-4 sm:pl-16 mt-0 space-y-10 pb-4">
             <p
-              className="block font-display text-left text-5xl sm:text-7xl font-semibold lg:font-bold text-white mt-14 lg:mt-20">
+              className="block font-display text-left text-5xl sm:text-7xl font-semibold  text-white mt-14 lg:mt-20">
               {heroH1}
             </p>
 
