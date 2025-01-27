@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import ServiceCards from '@/components/ServiceCards';
 import { AppContext } from '@/context/AppContext';
 import { useContext } from 'react';
+import NavBar2 from '@/components/NavBar2';
 
 const Home = () => {
   const appContext = useContext(AppContext);
@@ -17,6 +18,7 @@ const Home = () => {
 
   return (
     <div>
+      <NavBar2 />
       <Hero/>
       <Testimonials />
       <ServiceCards />

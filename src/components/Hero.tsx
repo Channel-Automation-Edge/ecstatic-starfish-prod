@@ -4,7 +4,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import GradualSpacing from './ui/gradual-spacing';
 import { motion } from 'framer-motion';
 import { AppContext } from '@/context/AppContext';
-import NavBar from './NavBar.tsx';
 import useClearFormState from '@/hooks/useClearFormState.tsx';
 
 const Hero = () => {
@@ -126,7 +125,7 @@ const Hero = () => {
 
   return (
     <div>
-      <div className="relative">
+      <div className="relative h-96">
         <div className="absolute inset-0">
           <video
             autoPlay
@@ -140,7 +139,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-[#12121d99] opacity-100 z-[1]"></div> {/* Moved overlay after video and added z-index */}
 
         <div className="relative z-[2] w-full overflow-hidden"> {/* Added z-index to content container */}
-          <NavBar />
+          {/* <NavBar /> */}
           <div className="z-10 pb-12 md:pb-14 lg:pb-16 flex items-center justify-center flex-col px-4 mt-0 space-y-[25px]">
             <GradualSpacing
               className="hidden sm:block font-display text-center text-4xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl font-semibold -tracking-widest text-white dark:text-white mt-14 lg:mt-20"

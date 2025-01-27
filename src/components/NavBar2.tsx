@@ -26,20 +26,20 @@ const NavBar2 = () => {
   const newUrl = `/${slug}?${currentParams.toString()}`;
 
   return (
-    <div className=''>
+    <div className="">
       <header className="">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-28 items-center justify-between">
+          <div className="flex h-20 sm:h-28 items-center justify-between">
             <div className="md:flex md:items-center md:gap-12 ">
               <a className="block text-accent" href={newUrl}>
                 <span className="sr-only">Home</span>
-                <img src={logoSrc} alt="Logo" className="h-12 sm:h-14 lg:h-16" />
+                <img src={logoSrc} alt="Logo" className="h-8 sm:h-14 lg:h-16" />
               </a>
             </div>
             <div className="flex items-center gap-4">
               <div className="flex sm:gap-4">
                 <a
-                  className="rounded-md bg-transparent px-5 py-2.5 text-sm font-medium text-gray-800 hover:text-accentColor inline-flex items-center"
+                  className="rounded-md bg-transparent pl-4 py-2.5 text-sm font-medium text-gray-800 hover:text-accentColor inline-flex items-center"
                   href="tel:+18594075999"
                 >
                   <svg id="fi_5585856" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" className="w-6 h-6 mr-2 text-accentColor">
