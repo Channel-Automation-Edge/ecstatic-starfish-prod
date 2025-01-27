@@ -1,10 +1,10 @@
 "use client";
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import GradualSpacing from './ui/gradual-spacing';
 import { motion } from 'framer-motion';
 import { AppContext } from '@/context/AppContext';
 import useClearFormState from '@/hooks/useClearFormState.tsx';
+
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -125,7 +125,8 @@ const Hero = () => {
 
   return (
     <div>
-      <div className="relative h-96 flex items-center">
+      {/* <NavBar2 /> */}
+      <div className="relative h-[725px] flex items-center">
         <div className="absolute inset-0">
           <video
             autoPlay
@@ -139,28 +140,18 @@ const Hero = () => {
         <div className="absolute inset-0 bg-[#12121d99] opacity-100 z-[1]"></div> {/* Moved overlay after video and added z-index */}
 
         <div className="relative z-[2] w-full overflow-hidden"> {/* Added z-index to content container */}
-          {/* <NavBar /> */}
-          <div className="z-10 pb-12 md:pb-14 lg:pb-16 flex items-center justify-center flex-col px-4 mt-0 space-y-[25px]">
-            <GradualSpacing
-              className="hidden sm:block font-display text-center text-4xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl font-semibold -tracking-widest text-white dark:text-white mt-14 lg:mt-20"
-              text={heroH1}
-            />
-            <div className="block sm:hidden">
-              <GradualSpacing
-                className="font-display text-center text-[32px] font-bold -tracking-widest text-white dark:text-white mt-4"
-                text={heroH1.split(' ').slice(0, 3).join(' ')}
-              />
-              <GradualSpacing
-                className="font-display text-center text-[32px] font-bold -tracking-widest text-white dark:text-white"
-                text={heroH1.split(' ').slice(3).join(' ')}
-              />
-            </div>
+          
+          <div className="z-10 sm:w-8/12 flex items-left justify-left flex-col px-4 sm:pl-16 mt-0 space-y-10 pb-4">
+            <p
+              className="block font-display text-left text-5xl sm:text-7xl font-semibold lg:font-bold text-white mt-14 lg:mt-20">
+              {heroH1}
+            </p>
 
             <motion.p
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 1 }}
               transition={{ delay: 0.6 }}
-              className="text-sm sm:text-sm md:text-base lg:text-base text-white/80 max-w-lg lg:max-w-[551px] text-center pb-4"
+              className="text-base md:text-lg text-white/80 text-left"
             >
               {subheadingText1}
             </motion.p>

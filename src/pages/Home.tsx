@@ -20,6 +20,7 @@ const Home = () => {
     <div>
       <NavBar2 />
       <Hero/>
+      
       <Testimonials />
       <ServiceCards />
       
