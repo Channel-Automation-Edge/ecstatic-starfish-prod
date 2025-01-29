@@ -78,6 +78,8 @@ const ParentForm = () => {
     localStorage.removeItem('formID');
   };
 
+  const avatar = contractor.content.avatar || null;
+
   return (
     <div className='bg-xbg min-h-screen'>
       <div className="mx-auto max-w-screen-xl px-4 pb-2 custom-smallest:pb-3 small-stepper:pb-3 sm:pb-4 md:pb-6 pt-2 sm:px-6 lg:px-8">
@@ -85,17 +87,19 @@ const ParentForm = () => {
           <Stepper currentStep={currentStep} />
         </div>
       </div>
-      <div className="mx-auto max-w-screen-xl px-4 pb-6 pt-6 sm:px-6 lg:px-8 relative">
+      <div className={`mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 ${contractor.content.avatar ? 'py-6' : 'py-0' } relative`}>
         <div className="flex justify-center">
           <div className="w-[600px]">
             <ProgressBar progress={progress} />
           </div>
           <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          {contractor.content.avatar && (
             <img
-              src="/images/avatar.jpg"
-              alt="Avatar"
-              className="w-12 h-12 custom-smallest:w-14 custom-smallest:h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full border-2 border-accentLight object-cover"
-            />
+            src={avatar}
+            alt="Avatar"
+            className="w-12 h-12 custom-smallest:w-14 custom-smallest:h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full border-2 border-accentLight object-cover"
+          />
+          )}
           </div>
         </div>
       </div>

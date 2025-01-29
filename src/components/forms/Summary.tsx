@@ -249,6 +249,7 @@ const Summary: React.FC<SummaryProps> = ({ onNext, onBack, onReset }) => {
                     </div>
                     {/* Schedule */}
                     <hr className='mb-4'></hr>
+                    {form.promo }
                     <p className="text-sm font-semibold text-gray-800 mb-3">Promo</p>
                     <hr className='mb-4'></hr>
                     <p className="text-sm font-semibold text-gray-800 mb-3">Scheduled Date and Time</p>

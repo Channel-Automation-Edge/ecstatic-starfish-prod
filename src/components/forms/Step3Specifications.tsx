@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '@/context/AppContext';
-import ResetButton from '@/components/ui/resetButton';
-import BackButton from '@/components/ui/backButton';
+import NavButtons from '../ui/navButtons';
 
 // Define props interface
 interface Step3SpecificationsProps {
@@ -43,10 +42,7 @@ const Step3Specifications: React.FC<Step3SpecificationsProps> = ({ onNext, onBac
 
   return (
     <div className="z-10 max-w-[100rem] px-4 md:px-14 py-10 lg:py-14 mx-auto relative">
-      <div className="absolute top-[-102px] custom-smallest:top-[-110px] small-stepper:top-[-115px] sm:top-[-121px] md:top-[-137px] left-0 w-full flex justify-between p-4">
-        <BackButton onClick={handleBack} />
-        <ResetButton onClick={handleReset} />
-      </div>
+      <NavButtons handleBack={handleBack} handleReset={handleReset} />
 
       <div className="space-y-8">
         <div className='flex justify-center text-center mb-8'>

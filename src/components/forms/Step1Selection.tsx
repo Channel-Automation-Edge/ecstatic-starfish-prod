@@ -14,7 +14,7 @@ const Step1Selection: React.FC<Step1SelectionProps> = ({ onNext }) => {
     return null;
   }
 
-  const { user, services, setSelectedService } = appContext;
+  const { services, setSelectedService } = appContext;
   const [loading, setLoading] = useState<boolean>(false); // State to control spinner
   const params = new URLSearchParams(window.location.search);
   const initial = params.get('firstname');
@@ -26,11 +26,6 @@ const Step1Selection: React.FC<Step1SelectionProps> = ({ onNext }) => {
   };
 
   const firstname = capitalizeFirstLetter(initial);
-
-  // Filter services based on user's ZIP code
-  const filteredServices = services.filter((service: any) => 
-    service.zips_available && service.zips_available.includes(user.zip)
-  );
 
   const handleServiceSelect = async (service: any) => {
     setLoading(true); // Show spinner
@@ -60,7 +55,7 @@ const Step1Selection: React.FC<Step1SelectionProps> = ({ onNext }) => {
           </div>
         </div>
 
-        <Services services={filteredServices} handleServiceSelect={handleServiceSelect} />
+        <Services services={services} handleServiceSelect={handleServiceSelect} />
 
         {loading && (
           <div className="flex justify-center pt-20">

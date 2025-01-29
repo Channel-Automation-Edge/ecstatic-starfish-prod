@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AppContext } from '@/context/AppContext';
 import useClearFormState from '@/hooks/useClearFormState.tsx';
+import { InteractiveHoverButton } from './ui/interactive-hover-button';
 
 
 const Hero = () => {
@@ -16,7 +17,7 @@ const Hero = () => {
     return null; 
   }
 
-  const { contractor, setForm, setUser, user, form } = appContext; // Include user from appContext
+  const { contractor, setForm, form } = appContext; // Include user from appContext
   const urlParams = new URLSearchParams(location.search);
   const firstnameParam = urlParams.get('firstname') || '';
   const stateParam = urlParams.get('state') || '';
@@ -31,28 +32,20 @@ const Hero = () => {
 
 
   // Default content
-  const defaultH1 = "Instant Everything, Incredible Pricing";
   const defaultLede = zipParam
     ? `Hi ${firstnameParam}, find top contractors in ${stateParam} near ${zipParam} for your upcoming remodel and control your quotes`
     : stateParam
     ? `Hi ${firstnameParam}, find top contractors in ${stateParam} for your upcoming remodel and control your quotes`
     : "Hi there, find top contractors in your area for your upcoming remodel and control your quotes";
-  const defaultCtaLabel = "Get Started Now";
 
-  const heroH1 = contractor.content.hero_h1 || defaultH1;
+  const heroH1 = contractor.content.hero_h1 || "Building Better Spaces for Better Living";
   const heroLede = contractor.content.hero_lede || defaultLede;
-  const heroCtaLabel = contractor.content.hero_cta || defaultCtaLabel;
+  const heroCtaLabel = contractor.content.hero_cta || "Get Free Assesment";
 
   const [buttonText, setButtonText] = useState("Get a Free Consultation Now");
   const [, setSubheadingText] = useState("Or select a service to get started");
   const [subheadingText1, setSubheadingText1] = useState(heroLede);
   
-  const initialZip = user.zip && user.zip.trim() !== '' ? user.zip : zipParam; // Use user.zip if available, otherwise url zip
-  const [zip, setZip] = useState<string>(initialZip);  // Initialize zip state
-  const [isZipValid, setIsZipValid] = useState<boolean>(initialZip.length >= 4 && initialZip.length <= 5); // Validate initial zip
-
-  const [showZipInput, setShowZipInput] = useState<boolean>(true);  // State to control ZIP input visibility
-
   // Update button text based on form progress
   useEffect(() => {
     const step = localStorage.getItem('formStep');
@@ -60,10 +53,8 @@ const Hero = () => {
     if (step !== null && step !== "1") {
       setButtonText("Finish your Previous Quote");
       setSubheadingText("Or reset your progress and select another service");
-      setShowZipInput(false);  // Hide ZIP input
     } else {
       setButtonText(heroCtaLabel);
-      setShowZipInput(true);  // Show ZIP input
     }
     setSubheadingText1(heroLede);
   }, [appContext.contractor, appContext.services, heroLede, heroCtaLabel]);
@@ -106,22 +97,10 @@ const Hero = () => {
       ...prevForm,
       formId: formId,
     }));
-
-    setUser((prevUser) => ({
-      ...prevUser,
-      zip: zip,  // Save the zip code to the user context
-    }));
-
     navigateWithParams(`/request-quotes/${slug}`);
   };
 
-  const handleZipChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value.replace(/\D/g, ''); // Remove non-numeric characters
-    if (value.length <= 5) {  // Max length of 5
-      setZip(value);
-      setIsZipValid(value.length >= 4); // Valid if length is 4 or 5
-    }
-  };
+  const bRoll = contractor.content.b_roll || 'https://storage.googleapis.com/channel_automation/Webassets/video/homeprojectparterns-hero_9.0.10.webm'; // Get hero video from contractor content
 
   return (
     <div>
@@ -134,7 +113,7 @@ const Hero = () => {
             muted
             playsInline
             className="w-full h-full object-cover"
-            src="https://storage.googleapis.com/channel_automation/Webassets/video/homeprojectparterns-hero_9.0.10.webm"
+            src={bRoll}
           ></video>
         </div>
         <div className="absolute inset-0 bg-[#12121d99] opacity-100 z-[1]"></div> {/* Moved overlay after video and added z-index */}
@@ -159,26 +138,8 @@ const Hero = () => {
             <motion.div initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 1 }}
               transition={{ delay: 0.7 }} className="mt-5 lg:mt-8 flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
-              {showZipInput && (
-                <div className="w-full sm:w-auto">
-                  <input 
-                    type="text" 
-                    id="hero-input" 
-                    name="hero-input" 
-                    className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-accentColor text-center" 
-                    placeholder="Enter ZIP Code" 
-                    value={zip}
-                    onChange={handleZipChange}
-                  /> 
-                </div>
-              )}
-              <button 
-                className="w-full sm:w-auto py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-accentColor text-white hover:bg-accentDark focus:outline-none focus:bg-accentDark disabled:opacity-50 disabled:pointer-events-none" 
-                onClick={handleButtonClick} 
-                disabled={!isZipValid && showZipInput} // Disable button if zip is not valid
-              >
-                {buttonText}
-              </button>
+              
+              <InteractiveHoverButton className='bg-accentColor text-white border-transparent text-sm rounded-lg py-3' onClick={handleButtonClick}>{buttonText}</InteractiveHoverButton>
             </motion.div>
 
           </div>

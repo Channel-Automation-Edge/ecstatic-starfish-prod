@@ -45,6 +45,9 @@ export default {
 			accentLight:{
 				DEFAULT: 'var(--light)', //light
 			},
+			secondaryColor:{
+				DEFAULT: 'var(--secondary)', 
+			},
 			xbg:{
 				DEFAULT: '#F9F9FF', 
 			},

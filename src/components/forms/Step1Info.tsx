@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { AppContext } from '@/context/AppContext';
-import ResetButton from '@/components/ui/resetButton';
-import BackButton from '@/components/ui/backButton';
 import PhoneInput from 'react-phone-number-input/input';
+import NavButtons from '../ui/navButtons';
 
 interface Step1InfoProps {
   onNext: () => void;
@@ -120,18 +119,18 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
     validateFields();
   }, [formik.values]); // Run effect on form values change
 
+  // 
+  // 
+
   return (
     <div className="z-10 max-w-[100rem] px-4 lg:px-14 py-10 lg:py-14 mx-auto relative">
-      <div className="absolute top-[-102px] custom-smallest:top-[-110px] small-stepper:top-[-115px] sm:top-[-121px] md:top-[-137px] left-0 w-full flex justify-between p-4">
-        <BackButton onClick={handleBack} />
-        <ResetButton onClick={handleReset} />
-      </div>
+      <NavButtons handleBack={handleBack} handleReset={handleReset} />
       
       <div className="max-w-xl mx-auto">
         <div className='flex justify-center text-center mb-8'>
           <div className="max-w-[40rem] text-center">
-            <h1 className="block text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl font-bold sm:font-bold md:font-semibold lg:font-semibold text-gray-800 dark:text-white">
-            Great! Let’s <span className="text-accentColor">confirm </span> your contact details
+            <h1 className="block text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl font-semibold text-gray-800 dark:text-white">
+            Great! Let's <span className="text-accentColor">confirm </span> your contact details
             </h1>
           </div>
         </div>
@@ -198,7 +197,7 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
                 )}
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+              <div className="grid grid-cols-2 gap-4 lg:gap-6">
                 <div className="relative">
                   <label htmlFor="zip" className="block mb-2 text-sm text-gray-700 font-medium dark:text-white">ZIP Code</label>
                   <input
@@ -409,7 +408,7 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
                 </div>
               )}
 
-              <div className="mt-6 grid">
+              <div className="mt-4 grid">
                 <button
                   type="submit"
                   className={`w-full py-5 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent ${
