@@ -41,7 +41,7 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
     formik.setValues({
       firstname: user.firstname || capitalizeWords(params.get('firstname')) || '',
       lastname: user.lastname || capitalizeWords(params.get('lastname')) || '',
-      zip: user.zip || '', // Default to user.zip
+      zip: user.zip || params.get('zip') || '', // Default to user.zip
       state: user.state || params.get('state') || '', // Default to URL parameter state or empty
       address1: user.address1 || capitalizeWords(params.get('address1')) || '',
       address2: user.address2 || capitalizeWords(params.get('address2')) || '',
@@ -123,13 +123,13 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
   // 
 
   return (
-    <div className="z-10 max-w-[100rem] px-4 lg:px-14 py-10 lg:py-14 mx-auto relative">
+    <div className="container-form">
       <NavButtons handleBack={handleBack} handleReset={handleReset} />
       
       <div className="max-w-xl mx-auto">
         <div className='flex justify-center text-center mb-8'>
           <div className="max-w-[40rem] text-center">
-            <h1 className="block text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl font-semibold text-gray-800 dark:text-white">
+            <h1 className="heading-form">
             Great! Let's <span className="text-accentColor">confirm </span> your contact details
             </h1>
           </div>
@@ -137,81 +137,148 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
         <div className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-white">
           <div className="mt-2">
             <form onSubmit={formik.handleSubmit} className="grid gap-4 lg:gap-6">
-              <div className="relative">
-                <label htmlFor="firstname" className="block mb-2 text-sm text-gray-700 font-medium dark:text-white">First Name</label>
-                <input
-                  id="firstname"
-                  name="firstname"
-                  type="text"
-                  onChange={formik.handleChange}
-                  value={formik.values.firstname}
-                  onBlur={formik.handleBlur}
-                  className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-base focus:outline-none focus:ring-1 focus:border-accentColor
-                  focus:ring-accentColor"
-                />
-                {formik.errors.firstname ? (
-                  <img
-                    src="/images/warning.svg"
-                    alt="Invalid"
-                    className="absolute right-3 top-10 w-6"
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                <div className="relative">
+                  <label htmlFor="firstname" className="input-label">First Name</label>
+                  <input
+                    id="firstname"
+                    name="firstname"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.firstname}
+                    onBlur={formik.handleBlur}
+                    className="input-field"
                   />
-                ) : (
-                  <img
-                    src="/images/tick.svg"
-                    alt="Valid"
-                    className="absolute right-6 top-11 w-4"
+                  {formik.errors.firstname ? (
+                    <img
+                      src="/images/warning.svg"
+                      alt="Invalid"
+                      className="absolute right-3 top-10 w-6"
+                    />
+                  ) : (
+                    <img
+                      src="/images/tick.svg"
+                      alt="Valid"
+                      className="absolute right-6 top-11 w-4"
+                    />
+                  )}
+                  {formik.touched.firstname && formik.errors.firstname && (
+                    <div className="error text-sm text-red-500">{formik.errors.firstname}</div>
+                  )}
+                </div>
+
+                <div className="relative">
+                  <label htmlFor="lastname" className="input-label">Last Name</label>
+                  <input
+                    id="lastname"
+                    name="lastname"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.lastname}
+                    onBlur={formik.handleBlur}
+                    className="input-field"
                   />
-                )}
-                {formik.touched.firstname && formik.errors.firstname && (
-                  <div className="error text-sm text-red-500">{formik.errors.firstname}</div>
-                )}
+                  {formik.errors.lastname ? (
+                    <img
+                      src="/images/warning.svg"
+                      alt="Invalid"
+                      className="absolute right-3 top-10 w-6"
+                    />
+                  ) : (
+                    <img
+                      src="/images/tick.svg"
+                      alt="Valid"
+                      className="absolute right-6 top-11 w-4"
+                    />
+                  )}
+                  {formik.touched.lastname && formik.errors.lastname && (
+                    <div className="error text-sm text-red-500">{formik.errors.lastname}</div>
+                  )}
+                </div>
               </div>
 
-              <div className="relative">
-                <label htmlFor="lastname" className="block mb-2 text-sm text-gray-700 font-medium dark:text-white">Last Name</label>
-                <input
-                  id="lastname"
-                  name="lastname"
-                  type="text"
-                  onChange={formik.handleChange}
-                  value={formik.values.lastname}
-                  onBlur={formik.handleBlur}
-                  className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-base focus:outline-none focus:ring-1 focus:border-accentColor
-                  focus:ring-accentColor"
-                />
-                {formik.errors.lastname ? (
-                  <img
-                    src="/images/warning.svg"
-                    alt="Invalid"
-                    className="absolute right-3 top-10 w-6"
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                <div className="relative">
+                  <label htmlFor="email" className="input-label">Email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    onChange={formik.handleChange}
+                    value={formik.values.email}
+                    onBlur={formik.handleBlur}
+                    className="input-field"
                   />
-                ) : (
-                  <img
-                    src="/images/tick.svg"
-                    alt="Valid"
-                    className="absolute right-6 top-11 w-4"
-                  />
-                )}
-                {formik.touched.lastname && formik.errors.lastname && (
-                  <div className="error text-sm text-red-500">{formik.errors.lastname}</div>
-                )}
+                  {formik.errors.email ? (
+                    <img
+                      src="/images/warning.svg"
+                      alt="Invalid"
+                      className="absolute right-3 top-10 w-6"
+                    />
+                  ) : (
+                    <img
+                      src="/images/tick.svg"
+                      alt="Valid"
+                      className="absolute right-6 top-11 w-4"
+                    />
+                  )}
+                  {formik.touched.email && formik.errors.email && (
+                    <div className="error text-sm text-red-500">{formik.errors.email}</div>
+                  )}
+                </div>
+
+                <div className="relative">
+                  <label htmlFor="phone" className="input-label">Phone</label>
+                  <div className='flex items-start'>
+                    <input className="py-3 px-4 block w-12 bg-gray-100 border border-gray-200 border-r-transparent rounded-l-lg text-base focus:border-gray-200 focus:border-r-transparent focus:ring-transparent cursor-default focus:outline-none" readOnly placeholder='+1'>
+                    </input>
+                    <PhoneInput
+                      country="US"
+                      id="phone"
+                      name="phone"
+                      maxLength={14}
+                      value={formik.values.phone}
+                      onChange={value => formik.setFieldValue('phone', value || '')}
+                      onBlur={formik.handleBlur}
+                      className="py-3 px-4 block w-full border border-gray-200 rounded-r-lg text-base focus:outline-none focus:ring-1 focus:border-accentColor
+                      focus:ring-accentColor"
+                    />
+                  </div>
+                  
+                  {formik.errors.phone ? (
+                    <img
+                      src="/images/warning.svg"
+                      alt="Invalid"
+                      className="absolute right-3 top-10 w-6"
+                    />
+                  ) : (
+                    <img
+                      src="/images/tick.svg"
+                      alt="Valid"
+                      className="absolute right-6 top-11 w-4"
+                    />
+                  )}
+                  {formik.touched.phone && formik.errors.phone && (
+                    <div className="error text-sm text-red-500">{formik.errors.phone}</div>
+                  )}
+                </div>
               </div>
+              
 
               <div className="grid grid-cols-2 gap-4 lg:gap-6">
                 <div className="relative">
-                  <label htmlFor="zip" className="block mb-2 text-sm text-gray-700 font-medium dark:text-white">ZIP Code</label>
+                  <label htmlFor="zip" className="input-label">ZIP Code</label>
                   <input
                     id="zip"
                     name="zip"
                     type="text"
-                    readOnly
                     value={formik.values.zip}
-                    className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-base bg-gray-100 dark:border-neutral-700 dark:text-neutral-400 cursor-default focus:outline-none"
+                    className="input-field"
                   />
                 </div>
 
                 <div className="relative">
-                  <label htmlFor="state" className="block mb-2 text-sm text-gray-700 font-medium dark:text-white">State</label>
+                  <label htmlFor="state" className="input-label">State</label>
                   <input
                     id="state"
                     name="state"
@@ -220,8 +287,7 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
                     onChange={formik.handleChange}
                     value={formik.values.state}
                     onBlur={formik.handleBlur}
-                    className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-base focus:outline-none focus:ring-1 focus:border-accentColor
-                  focus:ring-accentColor dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400"
+                    className="input-field"
                   />
                   {formik.errors.state ? (
                     <img src="/images/warning.svg" alt="Invalid" className="absolute right-3 top-10 w-6" />
@@ -234,7 +300,7 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
                 </div>
               </div>
               <div className="relative">
-                <label htmlFor="city" className="block mb-2 text-sm text-gray-700 font-medium dark:text-white">City</label>
+                <label htmlFor="city" className="input-label">City</label>
                 <input
                   id="city"
                   name="city"
@@ -242,8 +308,7 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
                   onChange={formik.handleChange}
                   value={formik.values.city}
                   onBlur={formik.handleBlur}
-                  className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-base focus:outline-none focus:ring-1 focus:border-accentColor
-                  focus:ring-accentColor"
+                  className="input-field"
                 />
                 {formik.errors.city ? (
                   <img
@@ -263,7 +328,7 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
                 )}
               </div>
               <div className="relative">
-                <label htmlFor="address1" className="block mb-2 text-sm text-gray-700 font-medium dark:text-white">Address Line 1</label>
+                <label htmlFor="address1" className="input-label">Address Line 1</label>
                 <input
                   id="address1"
                   name="address1"
@@ -271,8 +336,7 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
                   onChange={formik.handleChange}
                   value={formik.values.address1}
                   onBlur={formik.handleBlur}
-                  className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-base focus:outline-none focus:ring-1 focus:border-accentColor
-                  focus:ring-accentColor"
+                  className="input-field"
                 />
                 {formik.errors.address1 ? (
                   <img
@@ -293,7 +357,7 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
               </div>
               
               <div className="relative">
-                <label htmlFor="address2" className="block mb-2 text-sm text-gray-700 font-medium dark:text-white">Address Line 2</label>
+                <label htmlFor="address2" className="input-label">Address Line 2</label>
                 <input
                   id="address2"
                   name="address2"
@@ -301,8 +365,7 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
                   onChange={formik.handleChange}
                   value={formik.values.address2}
                   onBlur={formik.handleBlur}
-                  className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-base focus:outline-none focus:ring-1 focus:border-accentColor
-                  focus:ring-accentColor"
+                  className="input-field"
                 />
                 {formik.values.address2 && !formik.errors.address2 && (
                   <img
@@ -313,72 +376,6 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
                 )}
                 {formik.touched.address2 && formik.errors.address2 && (
                   <div className="error text-sm text-red-500">{formik.errors.address2}</div>
-                )}
-              </div>
-
-              <div className="relative">
-                <label htmlFor="email" className="block mb-2 text-sm text-gray-700 font-medium dark:text-white">Email</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  onChange={formik.handleChange}
-                  value={formik.values.email}
-                  onBlur={formik.handleBlur}
-                  className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-base focus:outline-none focus:ring-1 focus:border-accentColor
-                  focus:ring-accentColor"
-                />
-                {formik.errors.email ? (
-                  <img
-                    src="/images/warning.svg"
-                    alt="Invalid"
-                    className="absolute right-3 top-10 w-6"
-                  />
-                ) : (
-                  <img
-                    src="/images/tick.svg"
-                    alt="Valid"
-                    className="absolute right-6 top-11 w-4"
-                  />
-                )}
-                {formik.touched.email && formik.errors.email && (
-                  <div className="error text-sm text-red-500">{formik.errors.email}</div>
-                )}
-              </div>
-
-              <div className="relative">
-                <label htmlFor="phone" className="block mb-2 text-sm text-gray-700 font-medium dark:text-white">Phone</label>
-                <div className='flex items-start'>
-                  <input className="py-3 px-4 block w-12 bg-gray-100 border border-gray-200 border-r-transparent rounded-l-lg text-base focus:border-gray-200 focus:border-r-transparent focus:ring-transparent cursor-default focus:outline-none" readOnly placeholder='+1'>
-                  </input>
-                  <PhoneInput
-                    country="US"
-                    id="phone"
-                    name="phone"
-                    maxLength={14}
-                    value={formik.values.phone}
-                    onChange={value => formik.setFieldValue('phone', value || '')}
-                    onBlur={formik.handleBlur}
-                    className="py-3 px-4 block w-full border border-gray-200 rounded-r-lg text-base focus:outline-none focus:ring-1 focus:border-accentColor
-                  focus:ring-accentColor dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:focus:ring-accentColor"
-                  />
-                </div>
-                
-                {formik.errors.phone ? (
-                  <img
-                    src="/images/warning.svg"
-                    alt="Invalid"
-                    className="absolute right-3 top-10 w-6"
-                  />
-                ) : (
-                  <img
-                    src="/images/tick.svg"
-                    alt="Valid"
-                    className="absolute right-6 top-11 w-4"
-                  />
-                )}
-                {formik.touched.phone && formik.errors.phone && (
-                  <div className="error text-sm text-red-500">{formik.errors.phone}</div>
                 )}
               </div>
 

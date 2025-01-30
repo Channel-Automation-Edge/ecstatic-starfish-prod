@@ -4,9 +4,8 @@ import { useFormik } from 'formik';
 import { AppContext } from '@/context/AppContext';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
-import ResetButton from '@/components/ui/resetButton';
 import BlurFade from '@/components/ui/blur-fade';
-import BackButton from '@/components/ui/backButton';
+import NavButtons from '../ui/navButtons';
 
 interface Step2ScheduleProps {
   onNext: () => void;
@@ -85,15 +84,12 @@ const Step2Schedule: React.FC<Step2ScheduleProps> = ({ onNext, onReset, onBack }
   };
 
   return (
-    <div className="z-10 max-w-[100rem] px-4 md:px-12 py-4 md:py-8 mx-auto relative">
-      <div className="absolute top-[-102px] custom-smallest:top-[-110px] small-stepper:top-[-115px] sm:top-[-121px] md:top-[-137px] left-0 w-full flex justify-between p-4">
-        <BackButton onClick={onBack} />
-        <ResetButton onClick={onReset} />
-      </div>
+    <div className="container-form">
+      <NavButtons handleBack={onBack} handleReset={onReset} />
       <div className="max-w-xl mx-auto">
         <div className='flex justify-center text-center mb-8'>
           <div className="max-w-[40rem] text-center">
-            <h1 className="block text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl font-bold sm:font-bold md:font-semibold lg:font-semibold text-gray-800 dark:text-white">
+            <h1 className="heading-form">
             Pick a  
             <span className="text-accentColor"> date and time</span> that works for you
             </h1>
@@ -152,7 +148,7 @@ const Step2Schedule: React.FC<Step2ScheduleProps> = ({ onNext, onReset, onBack }
               )}
             </BlurFade>
           </div>
-          <div className="mt-6 flex flex-col space-y-4">
+          <div className="mt-4 flex flex-col space-y-4">
             <button
               type="submit"
               className={`w-full py-5 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent ${

@@ -16,9 +16,26 @@ const Step3Specifications: React.FC<Step3SpecificationsProps> = ({ onNext, onBac
     return null;
   }
 
-  const { setForm, contractor } = appContext; // Access form and setForm from appContext
+  const { setForm, contractor, services } = appContext; // Access form and setForm from appContext
   const [loading, setLoading] = useState<boolean>(false);
   const accent_rgba = contractor.colors.accent_rgba || '0 10px 25px -6px rgba(0, 0, 0, 0.1)';
+
+  const capitalizeWords = (str: string | null) => {
+    if (!str) return '';
+    return str.replace(/\b\w/g, char => char.toUpperCase());
+  };
+  
+  // Get firstname from URL parameters
+  const params = new URLSearchParams(window.location.search);
+  const firstname = capitalizeWords(params.get('firstname'));
+
+  // Determine the heading text based on conditions
+  let headingText;
+  if (services.length === 1) {
+    headingText = firstname ? `Hi, ${firstname}! ` : "Hi there! ";
+  } else {
+    headingText = "Great! ";
+  }
 
   const handleBack = () => {
     onBack();
@@ -41,31 +58,26 @@ const Step3Specifications: React.FC<Step3SpecificationsProps> = ({ onNext, onBac
   };
 
   return (
-    <div className="z-10 max-w-[100rem] px-4 md:px-14 py-10 lg:py-14 mx-auto relative">
+    <div className="container-form">
       <NavButtons handleBack={handleBack} handleReset={handleReset} />
 
       <div className="space-y-8">
         <div className='flex justify-center text-center mb-8'>
           <div className="max-w-[40rem] text-center">
-            <h1 className="block text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl font-bold sm:font-bold md:font-semibold lg:font-semibold text-gray-800 dark:text-white">
-              Great! Please <span className="text-accentColor">specify your needs </span> further and let's get started!
+            <h1 className="heading-form"> {headingText}
+            Let us know <span className="text-accentColor">what you need </span> and let's get started!
             </h1> 
           </div>
         </div>
 
         <div className="mt-12 flex flex-col h-full">
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-[20px]" style={{ marginTop: '15px', width: '100%' }}>
+          <div className="container-cards">
             {["Repair", "Remodel"].map((spec) => (
               <button
                 key={spec}
                 type="button"
-                className="flex flex-row sm:flex-col items-center justify-start sm:justify-center w-full sm:w-[200px] h-[80px] sm:h-[156px] border border-transparent rounded-xl shadow-md p-4 transition-transform transform hover:scale-100 sm:hover:scale-105 bg-white"
+                className="cards-button"
                 onClick={() => handleSelect(spec)}
-                style={{
-                  boxShadow: 'rgba(0, 0, 0, 0.07) 0px 22px 30px -6px',
-                  transition: 'box-shadow 0.3s ease',
-                  borderColor: 'rgba(157, 176, 197, 0.25)',
-                }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.boxShadow = accent_rgba + ' 0px 10px 25px -6px ';
                   e.currentTarget.style.borderColor = accent_rgba;
@@ -80,7 +92,7 @@ const Step3Specifications: React.FC<Step3SpecificationsProps> = ({ onNext, onBac
                   alt={`${spec.toLowerCase()} icon`}
                   className="w-12 h-12 sm:w-14 sm:h-14 sm:mb-4 ml-2 mr-4 sm:ml-0 sm:mr-0"
                 />
-                <span className="text-gray-800 text-base font-medium text-left sm:text-center ">{spec}</span>
+                <span className="cards-text">{spec}</span>
               </button>
             ))}
           </div>

@@ -8,6 +8,7 @@ import ServiceCards from '@/components/ServiceCards';
 import { AppContext } from '@/context/AppContext';
 import { useContext } from 'react';
 import NavBar2 from '@/components/NavBar2';
+import {PromoModal, DialogTitle, Dialog} from '@/components/PromoModal';
 
 const Home = () => {
   const appContext = useContext(AppContext);
@@ -15,20 +16,29 @@ const Home = () => {
   if (!appContext || !appContext.contractor) {
     return null; // Return null if appContext or contractor is not available
   }
+  const { services } = appContext;
+
+  const onButtonClick = () => {
+    console.log('Button clicked');
+  }
+  
 
   return (
     <div>
       <NavBar2 />
-      <Hero/>
-      
+      <Hero/>      
       <Testimonials />
-      <ServiceCards />
-      
-        <TabSection/> 
-        <Benefits />
-        <FAQ />
+      {services && services.length > 1 && <ServiceCards />}    
+      <TabSection/> 
+      <Benefits />
+      <FAQ />
       <Footer />
-    </div>
+
+      <Dialog open={true}>
+        <DialogTitle></DialogTitle>
+        <PromoModal onButtonClick={onButtonClick} />
+      </Dialog>
+      </div>
   )
 }
 

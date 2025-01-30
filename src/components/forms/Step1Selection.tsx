@@ -35,11 +35,11 @@ const Step1Selection: React.FC<Step1SelectionProps> = ({ onNext }) => {
   };
 
   return (
-    <div className="z-10 max-w-[100rem] px-4 lg:px-14 py-10 lg:py-14 mx-auto relative">
+    <div className="container-form">
       <div className="space-y-8">
         <div className='flex justify-center text-center mb-8'>
           <div className="max-w-[40rem] text-center">
-            <h1 className="block text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl font-bold sm:font-bold md:font-semibold lg:font-semibold text-gray-800 dark:text-white">
+            <h1 className="heading-form">
               {firstname ? (
                 <>
                   Hi {firstname}! Let's bring your{' '}

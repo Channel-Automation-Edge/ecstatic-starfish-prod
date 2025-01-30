@@ -24,6 +24,7 @@ interface FormData {
   date: string | null;
   time: string | null;
   isBooked: boolean;
+  offer: any | null;
 }
 
 interface AppContextType {
@@ -83,6 +84,7 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
     date: null,
     time: null,
     isBooked: false,
+    offer: null,
   });
 
   const [selectedService, setSelectedService] = useState<any>(null);

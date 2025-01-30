@@ -1,8 +1,6 @@
 "use client";
 import React, { useContext, useState } from 'react';
 import { AppContext } from '@/context/AppContext';
-import ResetButton from '@/components/ui/resetButton';
-import BackButton from '@/components/ui/backButton';
 import Bathtub from '@/components/icons/Bathtub';
 import Trowel from '@/components/icons/Trowel';
 import Closet from '@/components/icons/Closet';
@@ -30,6 +28,7 @@ import { Dialog, DialogContent,
 } from '@/components/ui/dialog2';
 import { Button } from '@/components/ui/button';
 import ConfirmCheck from '../icons/ConfirmCheck';
+import NavButtons from '../ui/navButtons';
 
 
 // Icon mapping
@@ -203,16 +202,13 @@ const Summary: React.FC<SummaryProps> = ({ onNext, onBack, onReset }) => {
 
   return (
 		<div>
-			<div className="z-10 max-w-[100rem] px-4 md:px-12 py-4 md:py-8 mx-auto relative">
-				<div className="absolute top-[-102px] custom-smallest:top-[-110px] small-stepper:top-[-115px] sm:top-[-121px] md:top-[-137px] left-0 w-full flex justify-between p-4">
-					<BackButton onClick={handleBack} />
-					<ResetButton onClick={handleReset} />
-				</div>
+			<div className="container-form">
+      <NavButtons handleBack={handleBack} handleReset={handleReset} />
 
 				<div className="space-y-8">
 					<div className='flex justify-center text-center'>
 						<div className="max-w-[40rem] text-center">
-							<h1 className="block text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl font-bold sm:font-bold md:font-semibold lg:font-semibold text-gray-800 dark:text-white">
+							<h1 className="heading-form">
 							Almost There! <span className="text-accentColor">Confirm Your Appointment</span> Now
 							</h1> 
 						</div>

@@ -13,18 +13,30 @@ import Step2Schedule from './Step2Schedule';
 import Summary from './Summary';
 
 const ParentForm = () => {
-  const [currentStep, setCurrentStep, resetCurrentStep] = useFormPersistence('formStep', 1);
   const appContext = useContext(AppContext);
   const navigate = useNavigate();
   const location = useLocation();
   const clearFormState = useClearFormState();
   // const resetDatabase = useResetDatabase();
-  const progress = (currentStep - 1) * 16.66;
+
   if (!appContext) {
     return null;
   }
-  const { setForm, contractor } = appContext;
+
+  const { setForm, contractor, services, setSelectedService } = appContext;
+  // Determine the initial step based on the number of services
+  const initialStep = services.length === 1 ? 2 : 1;
+  const [currentStep, setCurrentStep, resetCurrentStep] = useFormPersistence('formStep', initialStep);
+
+  const progress = (currentStep - 1) * 16.66;
   const [slug, setSlug] = useState('');
+
+  // If there is only one service, preselect it
+  useEffect(() => {
+    if (services.length === 1) {
+      setSelectedService(services[0]);
+    }
+  }, [services, setSelectedService]);
   
   useEffect(() => {
     if (appContext && appContext.contractor) {
@@ -87,7 +99,7 @@ const ParentForm = () => {
           <Stepper currentStep={currentStep} />
         </div>
       </div>
-      <div className={`mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 ${contractor.content.avatar ? 'py-6' : 'py-0' } relative`}>
+      <div className={`mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 ${contractor.content.avatar ? 'py-6' : 'py-0'} relative`}>
         <div className="flex justify-center">
           <div className="w-[600px]">
             <ProgressBar progress={progress} />
@@ -106,7 +118,7 @@ const ParentForm = () => {
       <div>
         {currentStep === 1 && <Step1Selection onNext={handleNextStep} />}
         {currentStep === 2 && <Step3Specifications onNext={handleNextStep} onBack={handleBackStep} onReset={handleReset} />}
-        {currentStep === 3 && <Step1Info onNext={handleNextStep} onReset={handleReset} onBack={handleBackStep}/>}
+        {currentStep === 3 && <Step1Info onNext={handleNextStep} onReset={handleReset} onBack={handleBackStep} />}
         {currentStep === 4 && <Step2PromoOptIn onNext={handleNextStep} onBack={handleBackStep} onReset={handleReset} />}
         {currentStep === 5 && <Step2Schedule onNext={handleNextStep} onReset={handleReset} onBack={handleBackStep} />}
         {currentStep === 6 && <Summary onNext={handleSubmitted} onReset={handleReset} onBack={handleBackStep} />}

@@ -2,8 +2,9 @@ import React, { useContext, useState, useEffect } from 'react';
 import { AppContext } from '../context/AppContext'; // Ensure AppContext is correctly imported
 import useClearFormState from '../hooks/useClearFormState';
 import { useNavigate, useLocation } from 'react-router-dom';
-import BlurFade from './ui/blur-fade';
 import Services from './Services';
+import BlurFade from './ui/blur-fade';
+import useFormPersistence from '@/hooks/useFormPersistence';
 
 const ServiceCards: React.FC = () => {
   const appContext = useContext(AppContext);
@@ -11,21 +12,13 @@ const ServiceCards: React.FC = () => {
     return null;
   }
 
-  const { contractor, services, user, setUser, form, setForm } = appContext;
+  const { contractor, services, form, setSelectedService } = appContext;
+  const [, setCurrentStep, resetCurrentStep] = useFormPersistence('formStep', 1); 
 
   const navigate = useNavigate();
   const location = useLocation();
   const clearFormState = useClearFormState();
-
-  const urlParams = new URLSearchParams(location.search);
-  const zipParam = urlParams.get('zip') || '';
-  const initialZip = user.zip && user.zip.trim() !== '' ? user.zip : zipParam; 
-  const [zip, setZip] = useState<string>(initialZip);
-  const [isZipValid, setIsZipValid] = useState<boolean>(initialZip.length >= 4 && initialZip.length <= 5);
-
-  const [showZipInput, setShowZipInput] = useState<boolean>(true);
-  const [buttonText, setButtonText] = useState<string>("");
-  const [slug, setSlug] = useState('');
+    const [slug, setSlug] = useState('');
 
   useEffect(() => {
     if (appContext && appContext.contractor) {
@@ -33,22 +26,11 @@ const ServiceCards: React.FC = () => {
     }
   }, [appContext, appContext.contractor]);
 
-
-  // Update button text based on form progress
-    useEffect(() => {
-      const step = localStorage.getItem('formStep');
-  
-      if (step !== null && step !== "1") {
-        setButtonText("Finish your Previous Quote");
-        setShowZipInput(false);  // Hide ZIP input
-      } else {
-        setButtonText(contractor.content.services_cta || "See Available Services");
-        setShowZipInput(true);  // Show ZIP input
-      }
-    }, [appContext.contractor, appContext.services]);
-
-  const handleButtonClick = () => {
+  const handleServiceSelect = async (service: any) => {
     let formId = form.formId;
+
+    resetCurrentStep();
+    clearFormState();
 
     // If formId is not set, create a new formId
     if (!formId) {
@@ -63,69 +45,19 @@ const ServiceCards: React.FC = () => {
       console.log('Using existing form ID:', formId);
     }
 
-    // Update the form and user object in context
-    setForm((prevForm) => ({
-      ...prevForm,
-      formId: formId,
-    }));
+    setSelectedService(service);
 
-    setUser((prevUser) => ({
-      ...prevUser,
-      zip: zip,  // Save the zip code to the user context
-    }));
+    console.log('Selected service:', service);
+    console.log('Form ID:', formId);
+    console.log(appContext.form);
+    console.log(services);
 
+    // Update local storage
+    localStorage.setItem('selectedService', JSON.stringify(service));
+    setCurrentStep(2);
     navigateWithParams(`/request-quotes/${slug}`);
   };
-
-  const handleZipChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value.replace(/\D/g, ''); // Remove non-numeric characters
-    if (value.length <= 5) {  // Max length of 5
-      setZip(value);
-      setIsZipValid(value.length >= 4); // Valid if length is 4 or 5
-    }
-  };
-
-  //   if (!appContext) {
-  //     return;
-  //   }
-
-  //   const { form, setForm } = appContext;
-  //   const urlParams = new URLSearchParams(location.search);
-  //   const phoneParam = urlParams.get('phone') || '';
-
-  //   resetCurrentStep();
-  //   clearFormState();
-
-  //   let formId = localStorage.getItem('formID');
-  //   if (!formId) {
-  //     // Generate a new formId if it doesn't exist
-  //     const phone = phoneParam || generateRandomString(9);
-
-  //     const dateTime = new Date().toISOString().replace(/[-:.T]/g, '').slice(0, 14); // YYYYMMDDHHMMSS format
-  //     const randomString = generateRandomString(4);
-
-  //     formId = `${phone}-${dateTime}-${randomString}`;
-  //     localStorage.setItem('formID', formId);
-  //   }
-
-  //   // Update the form object in context
-  //   setForm({
-  //     ...form,
-  //     formId: formId,
-  //     selectedService: serviceId,
-  //   });
-
-  //   console.log('Selected service:', serviceId);
-  //   console.log('Form ID:', formId);
-  //   console.log(appContext.form);
-  //   console.log(services);
-
-  //   // Update local storage
-  //   localStorage.setItem('selectedService', JSON.stringify(serviceId));
-  //   setCurrentStep(2);
-  //   navigateWithParams('/request-quotes');
-  // };
-
+    
   // Function to generate a random string
   const generateRandomString = (length: number): string => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -143,10 +75,6 @@ const ServiceCards: React.FC = () => {
     navigate(`${path}?${currentParams.toString()}`);
   };
 
-  const test = () => {
-    console.log('test');
-  }
-
   return (
     <div className="z-10 max-w-[100rem] px-4 py-10 lg:py-14 mx-auto relative bg-white">
       <div className="text-center">
@@ -155,8 +83,8 @@ const ServiceCards: React.FC = () => {
         </BlurFade>
         <p className="mt-2 md:mt-4 text-gray-500 dark:text-neutral-500"></p>
       </div>
-      <Services services={services} handleServiceSelect={test} />
-      <div className='flex justify-center'>
+      <Services services={services} handleServiceSelect={handleServiceSelect} />
+      {/* <div className='flex justify-center'>
         <div className="mt-5 lg:mt-8 flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
           {showZipInput && (
             <div className="w-full sm:w-auto">
@@ -179,7 +107,7 @@ const ServiceCards: React.FC = () => {
             {buttonText}
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
