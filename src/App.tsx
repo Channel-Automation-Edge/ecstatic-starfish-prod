@@ -22,12 +22,13 @@ function App() {
   const [loading, setLoading] = useState(false); // State to control rendering
   const params = new URLSearchParams(location.search);
   const companyId = params.get('company_id');
+  const conceptId = params.get('concept_id');
 
   if (!appContext) {
     return null;
   }
 
-  const { setContractor, setServices, setLocations, contractor, user, setUser } = appContext;
+  const { setContractor, setServices, setLocations, contractor, user, setUser, setForm } = appContext;
 
   useEffect(() => {
     window.HSStaticMethods.autoInit();
@@ -99,6 +100,34 @@ function App() {
     };
     fetchInitialData();
   }, []);
+
+  useEffect(() => {
+    const fetchConcepts = async () => {
+      if (conceptId) {
+        try {
+          const { data, error } = await central
+            .from('concepts')
+            .select('*')
+            .eq('id', conceptId)
+            .single();
+
+          if (error) {
+            console.error('Error fetching concept:', error);
+          } else {
+            setForm((prevForm) => ({
+              ...prevForm,
+              concept: data,
+            }));
+            console.log('Concept data fetched:', data);
+          }
+        } catch (err) {
+          console.error('Unexpected error fetching concept data:', err);
+        }
+      }
+    };
+
+    fetchConcepts();
+  }, [conceptId]);
 
   // fetch zip if user.zip is present or changed
   useEffect(() => {
