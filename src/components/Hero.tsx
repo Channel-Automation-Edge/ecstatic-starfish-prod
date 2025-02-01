@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { AppContext } from '@/context/AppContext';
 import useClearFormState from '@/hooks/useClearFormState.tsx';
 import { InteractiveHoverButton } from './ui/interactive-hover-button';
-
+import {PromoModal, DialogTitle, Dialog} from '@/components/PromoModal';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -152,6 +152,10 @@ const Hero = () => {
           </div>
         </div>
       </div>
+      <Dialog open={true}>
+        <DialogTitle></DialogTitle>
+        <PromoModal onButtonClick={handleButtonClick} />
+      </Dialog>
     </div>
   );
 };

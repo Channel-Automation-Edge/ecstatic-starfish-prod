@@ -36,6 +36,9 @@ const ParentForm = () => {
     if (services.length === 1) {
       setSelectedService(services[0]);
     }
+    if (currentStep === 1) {
+      setCurrentStep(2)
+    }
   }, [services, setSelectedService]);
   
   useEffect(() => {

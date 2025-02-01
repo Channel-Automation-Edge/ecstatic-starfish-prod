@@ -12,10 +12,12 @@ const Dialog = DialogPrimitive.Root
 
 const PromoModal: React.FC<PromoModalProps> = ({ onButtonClick }) => {
   const appContext = useContext(AppContext);
-  const [open, setOpen] = useState(false);
-
+  if (!appContext) {
+    return null;
+  }
   const backgroundImage = appContext?.form?.concept?.photo || '';
-
+  const [open, setOpen] = useState(false);
+  
   useEffect(() => {
     // Set a timeout to show the modal after a few seconds
     const timer = setTimeout(() => {

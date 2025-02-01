@@ -19,15 +19,19 @@ const NavButtons: React.FC<NavButtonsProps> = ({ handleBack, handleReset }) => {
   const hasAvatar = appContext.contractor?.content?.avatar;
 
   return (
-    <div
-      className={`absolute ${
-        hasAvatar
-          ? 'top-[-102px] custom-smallest:top-[-110px] small-stepper:top-[-115px] sm:top-[-121px] md:top-[-137px]'
-          : 'top-[-54px] custom-smallest:top-[-61px] small-stepper:top-[-67px] sm:top-[-73px] md:top-[-90px]'
-      } left-0 w-full flex justify-between p-4`}
-    >
-      <BackButton onClick={handleBack} />
-      <ResetButton onClick={handleReset} />
+    <div>
+      { appContext.services.length > 1 && (
+        <div className={`absolute ${
+          hasAvatar
+            ? 'top-[-102px] custom-smallest:top-[-110px] small-stepper:top-[-115px] sm:top-[-121px] md:top-[-137px]'
+            : 'top-[-54px] custom-smallest:top-[-61px] small-stepper:top-[-67px] sm:top-[-73px] md:top-[-90px]'
+        } left-0 w-full flex justify-between p-4`}>
+          <BackButton onClick={handleBack} />
+          <ResetButton onClick={handleReset} /> 
+        </div>
+      )
+      }
+      
     </div>
   );
 };
