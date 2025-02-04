@@ -1,13 +1,13 @@
 import Hero from '../components/Hero';
 import Benefits from '@/components/Benefits';
 import FAQ from '@/components/FAQ';
-import TabSection from '@/components/TabSection';
 import Testimonials from '@/components/Testimonials';
 import Footer from '@/components/Footer';
 import ServiceCards from '@/components/ServiceCards';
 import { AppContext } from '@/context/AppContext';
 import { useContext } from 'react';
 import NavBar2 from '@/components/NavBar2';
+import Feature from '@/components/Feature';
 
 const Home = () => {
   const appContext = useContext(AppContext);
@@ -23,8 +23,8 @@ const Home = () => {
       <NavBar2 />
       <Hero/>      
       <Testimonials />
-      {services && services.length > 1 && <ServiceCards />}    
-      <TabSection/> 
+      {services && services.length > 1 && <ServiceCards />} 
+      <Feature />
       <Benefits />
       <FAQ />
       <Footer />

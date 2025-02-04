@@ -47,8 +47,8 @@ const Testimonials: React.FC = () => {
   return (
     <div>
       <div className="relative flex w-full pt-16 pb-10 flex-col items-center justify-center overflow-hidden bg-white pointer-events-none">
-        <div className="text-center">
-          <BlurFade delay={3 * 0.15} inView yOffset={15} className="font-semibold text-2xl md:text-3xl text-gray-800 dark:text-neutral-200 mb-[25px]">
+        <div className="hidden text-center">
+          <BlurFade delay={3 * 0.15} inView yOffset={15} className="section_header mb-[25px]">
             What our <span className="text-accentColor">satisfied</span> clients say about us
           </BlurFade>
           <p className="mt-2 md:mt-4 text-gray-500 dark:text-neutral-500"></p>

@@ -26,11 +26,11 @@ const FAQ: React.FC = () => {
       {/* Grid */}
       <div className="grid md:grid-cols-5 gap-10">
         <BlurFade delay={3 * 0.15} inView yOffset={15} className="md:col-span-2">
-          <div className="max-w-xs">
-            <h2 className="text-2xl font-semibold md:text-4xl md:leading-tight dark:text-white">
+          <div className="space-y-2 md:space-y-4 max-w-xs">
+            <h2 className="section_header">
               Frequently Asked Questions
             </h2>
-            <p className="mt-1 hidden md:block text-gray-600 dark:text-neutral-400">
+            <p className="hidden md:block section_description">
               Here are some of the most common questions we receive.
             </p>
           </div>

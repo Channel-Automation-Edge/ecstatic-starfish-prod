@@ -7,7 +7,7 @@ const Benefits: React.FC = () => {
       <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
 
       <BlurFade delay={3 * 0.15} inView yOffset={15} className="text-center mb-12">
-          <p className="font-semibold text-2xl md:text-3xl text-gray-800 dark:text-neutral-200">
+          <p className="section_header">
           Why Homeowners <span className="text-accentColor">Love Us</span>
           </p>
           <p className="mt-2 md:mt-4 text-gray-500 dark:text-neutral-500">

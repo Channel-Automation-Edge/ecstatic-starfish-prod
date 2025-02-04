@@ -118,3 +118,11 @@
   @apply py-3 px-4 w-full border border-gray-200 rounded-lg text-base focus:outline-none focus:ring-1 focus:border-accentColor
   focus:ring-accentColor
 }
+
+.section_header {
+  @apply font-semibold text-2xl md:text-4xl text-gray-800 dark:text-neutral-200;
+}
+
+.section_description {
+  @apply text-base text-gray-500 dark:text-neutral-500;
+}

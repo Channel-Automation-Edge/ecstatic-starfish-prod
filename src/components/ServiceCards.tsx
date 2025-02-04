@@ -78,7 +78,7 @@ const ServiceCards: React.FC = () => {
   return (
     <div className="z-10 max-w-[100rem] px-4 py-10 lg:py-14 mx-auto relative bg-white">
       <div className="text-center">
-        <BlurFade delay={3 * 0.15} yOffset={15} className="font-semibold text-2xl md:text-3xl text-gray-800 dark:text-neutral-200">
+        <BlurFade delay={3 * 0.15} yOffset={15} className="section_header">
             Check out the <span className="text-accentColor">services</span> we offer
         </BlurFade>
         <p className="mt-2 md:mt-4 text-gray-500 dark:text-neutral-500"></p>

@@ -190,15 +190,13 @@ function App() {
   useEffect(() => {
     if (appContext && appContext.contractor && appContext.contractor.colors) {
       const accentColor = appContext.contractor.colors.accent || '#FA5100'; 
-      const light = appContext.contractor.colors.light || '#E6E9FD';
-      const dark = appContext.contractor.colors.dark || '#000000';
-      const darker = appContext.contractor.colors.darker || '#000000';
-      const secondary = appContext.contractor.colors.secondary || null;
+      const light = appContext.contractor.colors.light || '#fff1eb';
+      const dark = appContext.contractor.colors.dark || '#d84a05';
+      const darker = appContext.contractor.colors.darker || '#ab3c06';
       document.documentElement.style.setProperty('--light', light);
       document.documentElement.style.setProperty('--accent', accentColor);
       document.documentElement.style.setProperty('--darker', darker);
       document.documentElement.style.setProperty('--dark', dark);
-      document.documentElement.style.setProperty('--secondary', secondary);
     }
   }, [appContext]);
 

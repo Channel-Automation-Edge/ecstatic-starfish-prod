@@ -23,7 +23,7 @@ const NavBar2 = () => {
     }
   }, [appContext, appContext.contractor]);
 
-  const logoSrc = appContext.contractor.content.logo;
+  const logoSrc = appContext.contractor.content.logo || '/images/logo.png';
 
   // Function to append current URL parameters
   const navigateWithParams = (path: string) => {
