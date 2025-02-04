@@ -19,7 +19,7 @@ const Home = () => {
   
 
   return (
-    <div>
+    <div className='bg-white'>
       <NavBar2 />
       <Hero/>      
       <Testimonials />

@@ -22,7 +22,7 @@ const ParentForm = () => {
   if (!appContext || !appContext.contractor || !appContext.services) {
     return null; // Handle the case where data is not loaded yet
   }
-  
+
   const { setForm, contractor, services, setSelectedService } = appContext;
   // Determine the initial step based on the number of services
   const initialStep = services.length === 1 ? 2 : 1;
@@ -96,7 +96,7 @@ const ParentForm = () => {
   const avatar = contractor.content.avatar || null;
 
   return (
-    <div className='bg-xbg min-h-screen'>
+    <div className='min-h-screen'>
       <div className="mx-auto max-w-screen-xl px-4 pb-2 custom-smallest:pb-3 small-stepper:pb-3 sm:pb-4 md:pb-6 pt-2 sm:px-6 lg:px-8">
         <div className="flex justify-center">
           <Stepper currentStep={currentStep} />

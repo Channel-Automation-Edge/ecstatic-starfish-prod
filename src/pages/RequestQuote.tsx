@@ -12,13 +12,14 @@ import { Dialog, DialogContent,
 import { Button } from '@/components/ui/button';
 import posthog from 'posthog-js';
 import { AppContext } from '@/context/AppContext';
+import Navbar from '@/components/NavBar';
 
 const RequestQuote = () => {
   const location = useLocation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const appContext = useContext(AppContext);
 
-  if (!appContext || !appContext.contractor || !appContext.services) {
+  if (!appContext) {
     return null; // Handle the case where data is not loaded yet
   }
   const [slug, setSlug] = useState('');
@@ -60,7 +61,8 @@ const RequestQuote = () => {
   }
 
   return (
-    <div>
+    <div className='bg-gray-50'>
+      <Navbar />
       <ParentForm />
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogTrigger asChild>
