@@ -12,8 +12,8 @@ const Dialog = DialogPrimitive.Root
 
 const PromoModal: React.FC<PromoModalProps> = ({ onButtonClick }) => {
   const appContext = useContext(AppContext);
-  if (!appContext) {
-    return null;
+  if (!appContext || !appContext.contractor || !appContext.services) {
+    return null; // Handle the case where data is not loaded yet
   }
   const backgroundImage = appContext?.form?.concept?.photo || '';
   const [open, setOpen] = useState(false);

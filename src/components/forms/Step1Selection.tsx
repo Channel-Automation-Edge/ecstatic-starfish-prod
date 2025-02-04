@@ -10,10 +10,9 @@ interface Step1SelectionProps {
 const Step1Selection: React.FC<Step1SelectionProps> = ({ onNext }) => {
   const appContext = useContext(AppContext);
 
-  if (!appContext) {
-    return null;
+  if (!appContext || !appContext.contractor || !appContext.services) {
+    return null; // Handle the case where data is not loaded yet
   }
-
   const { services, setSelectedService } = appContext;
   const [loading, setLoading] = useState<boolean>(false); // State to control spinner
   const params = new URLSearchParams(window.location.search);

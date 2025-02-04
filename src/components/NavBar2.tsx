@@ -10,8 +10,8 @@ const NavBar2 = () => {
   const navigate = useNavigate();
   const clearFormState = useClearFormState();
 
-  if (!appContext) {
-    return null; 
+  if (!appContext || !appContext.contractor || !appContext.services) {
+    return null; // Handle the case where data is not loaded yet
   }
 
   const { contractor, setForm, form } = appContext;

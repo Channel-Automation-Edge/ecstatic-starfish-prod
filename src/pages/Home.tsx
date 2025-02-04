@@ -12,8 +12,8 @@ import Feature from '@/components/Feature';
 const Home = () => {
   const appContext = useContext(AppContext);
   
-  if (!appContext || !appContext.contractor) {
-    return null; // Return null if appContext or contractor is not available
+  if (!appContext || !appContext.contractor || !appContext.services) {
+    return null; // Handle the case where data is not loaded yet
   }
   const { services } = appContext;
   

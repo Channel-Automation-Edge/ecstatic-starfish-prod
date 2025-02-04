@@ -8,8 +8,8 @@ import useFormPersistence from '@/hooks/useFormPersistence';
 
 const ServiceCards: React.FC = () => {
   const appContext = useContext(AppContext);
-  if (!appContext) {
-    return null;
+  if (!appContext || !appContext.contractor || !appContext.services) {
+    return null; // Handle the case where data is not loaded yet
   }
 
   const { contractor, services, form, setSelectedService } = appContext;

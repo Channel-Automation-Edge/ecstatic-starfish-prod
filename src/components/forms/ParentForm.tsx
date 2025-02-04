@@ -19,10 +19,10 @@ const ParentForm = () => {
   const clearFormState = useClearFormState();
   // const resetDatabase = useResetDatabase();
 
-  if (!appContext) {
-    return null;
+  if (!appContext || !appContext.contractor || !appContext.services) {
+    return null; // Handle the case where data is not loaded yet
   }
-
+  
   const { setForm, contractor, services, setSelectedService } = appContext;
   // Determine the initial step based on the number of services
   const initialStep = services.length === 1 ? 2 : 1;

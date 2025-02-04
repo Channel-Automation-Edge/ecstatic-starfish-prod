@@ -52,8 +52,8 @@ const Services: React.FC<ServicesProps> = ({ services, handleServiceSelect }) =>
 
   const appContext = useContext(AppContext);
 
-  if (!appContext) {
-    return null;
+  if (!appContext || !appContext.contractor || !appContext.services) {
+    return null; // Handle the case where data is not loaded yet
   }
 
   const accent_rgba = appContext.contractor.colors.accent_rgba || '0 10px 25px -6px rgba(0, 0, 0, 0.1)';

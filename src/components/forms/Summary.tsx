@@ -62,8 +62,8 @@ interface SummaryProps {
 const Summary: React.FC<SummaryProps> = ({ onNext, onBack, onReset }) => {
   const appContext = useContext(AppContext);
 
-  if (!appContext) {
-    return null;
+  if (!appContext || !appContext.contractor || !appContext.services) {
+    return null; // Handle the case where data is not loaded yet
   }
 
   const { form, setForm, user, contractor, selectedService } = appContext; // Access selectedService from appContext

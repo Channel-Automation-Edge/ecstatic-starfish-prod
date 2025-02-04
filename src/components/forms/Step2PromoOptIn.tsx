@@ -13,8 +13,8 @@ interface Step2PromoOptInProps {
 const Step2PromoOptIn: React.FC<Step2PromoOptInProps> = ({ onNext, onBack, onReset }) => {
   const appContext = useContext(AppContext);
 
-  if (!appContext) {
-    return null;
+  if (!appContext || !appContext.contractor || !appContext.services) {
+    return null; // Handle the case where data is not loaded yet
   }
 
   const { setForm, contractor } = appContext; // Access form and setForm from appContext

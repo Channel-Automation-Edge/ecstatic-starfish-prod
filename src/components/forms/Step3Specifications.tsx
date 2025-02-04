@@ -12,8 +12,8 @@ interface Step3SpecificationsProps {
 const Step3Specifications: React.FC<Step3SpecificationsProps> = ({ onNext, onBack, onReset }) => {
   const appContext = useContext(AppContext);
 
-  if (!appContext) {
-    return null;
+  if (!appContext || !appContext.contractor || !appContext.services) {
+    return null; // Handle the case where data is not loaded yet
   }
 
   const { setForm, contractor, services } = appContext; // Access form and setForm from appContext

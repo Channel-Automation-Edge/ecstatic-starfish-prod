@@ -13,8 +13,8 @@ const Hero = () => {
   const appContext = useContext(AppContext);
   const clearFormState = useClearFormState();
 
-  if (!appContext) {
-    return null; 
+  if (!appContext || !appContext.contractor || !appContext.services) {
+    return null; // Handle the case where data is not loaded yet
   }
 
   const capitalizeWords = (str: string | null) => {

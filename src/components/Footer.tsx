@@ -5,8 +5,8 @@ import { useLocation } from 'react-router-dom';
 const Footer: React.FC = () => {
   const appContext = useContext(AppContext);
 
-  if (!appContext) {
-    return null;
+  if (!appContext || !appContext.contractor || !appContext.services) {
+    return null; // Handle the case where data is not loaded yet
   }
 
   const { contractor } = appContext;

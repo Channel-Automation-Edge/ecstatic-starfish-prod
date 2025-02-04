@@ -14,8 +14,8 @@ interface Step1InfoProps {
 const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
   const appContext = useContext(AppContext);
 
-  if (!appContext) {
-    return null;
+  if (!appContext || !appContext.contractor || !appContext.services) {
+    return null; // Handle the case where data is not loaded yet
   }
 
   const { user, form, setUser, setForm } = appContext;

@@ -18,8 +18,8 @@ const RequestQuote = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const appContext = useContext(AppContext);
 
-  if (!appContext) {
-    return null;
+  if (!appContext || !appContext.contractor || !appContext.services) {
+    return null; // Handle the case where data is not loaded yet
   }
   const [slug, setSlug] = useState('');
 
