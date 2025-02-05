@@ -13,7 +13,7 @@ const Home = () => {
   const appContext = useContext(AppContext);
   
   if (!appContext || !appContext.contractor || !appContext.services) {
-    return null; // Handle the case where data is not loaded yet
+    return null;
   }
   const { services } = appContext;
   
@@ -21,12 +21,15 @@ const Home = () => {
   return (
     <div className='bg-white'>
       <NavBar2 />
-      <Hero/>      
+      <Hero/>
       <Testimonials />
-      {services && services.length > 1 && <ServiceCards />} 
-      <Feature />
-      <Benefits />
-      <FAQ />
+      <div className='max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-24  space-y-12 sm:space-y-20 lg:space-y-24'>
+        {services && services.length > 1 && <ServiceCards />} 
+        <Feature />
+        <Benefits />
+        <FAQ />
+      </div>      
+
       <Footer />
       </div>
   )

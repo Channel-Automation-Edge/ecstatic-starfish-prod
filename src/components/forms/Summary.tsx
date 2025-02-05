@@ -236,22 +236,19 @@ const Summary: React.FC<SummaryProps> = ({ onNext, onBack, onReset }) => {
                     <div className="w-14 h-14">{iconMapping[selectedService.services.name]}</div>
                       <div className="flex flex-wrap justify-between flex-grow">
                         <h3 className="text-lg font-medium text-gray-800 dark:text-white pl-6 pr-4">
-                          {selectedService.name} Service
+                          {selectedService.services.name} {form.serviceSpecification ? form.serviceSpecification : 'Service'}
                         </h3>
-                        <span className="mt-2 ml-6 sm:mt-0 sm:ml-0  max-w-full sm:max-w-none whitespace-nowrap sm:whitespace-normal py-1.5 px-3 rounded-lg text-xs font-medium bg-accentLight border border-accentColor text-accentColor">
-                          {form.serviceSpecification}
-                        </span>
                       </div>
                     </div>
                     {/* Schedule */}
-                    <hr className='mb-4'></hr>
+                    {/* <hr className='mb-4'></hr>
                     {form.promo }
-                    <p className="text-sm font-semibold text-gray-800 mb-3">Promo</p>
+                    <p className="text-sm font-semibold text-gray-800 mb-3">Promo</p> */}
                     <hr className='mb-4'></hr>
                     <p className="text-sm font-semibold text-gray-800 mb-3">Scheduled Date and Time</p>
                     {form.date && form.time ? (
-                      <div className="flex flex-wrap justify-between my-4 w-auto bg-gray-100 rounded-md py-4">
-                        <div className="flex items-center px-8 min-w-[200px]">
+                      <div className="flex flex-wrap justify-between my-4 w-auto bg-gray-100 rounded-md pt-2 pb-4 space-y-2">
+                        <div className="flex items-center px-8 min-w-[200px] mt-2">
                           <img src="/images/calendar.svg" alt="Calendar" className="inline mr-2 h-5" />
                           <p className="text-base text-gray-800">{formatDate(form.date)}</p>
                         </div>
@@ -259,19 +256,26 @@ const Summary: React.FC<SummaryProps> = ({ onNext, onBack, onReset }) => {
                         <div className="hidden sm:flex items-center px-8">
                           <img src="/images/clock.svg" alt="Clock" className="inline mr-2 h-5" />
                           <p className="text-base text-gray-800">{formatTime(form.time)}</p>
-                          <img src="/images/globe.svg" alt="Clock" className="inline ml-4 mr-2 h-5" />
-                          <p className="text-base text-gray-800">{user.timezone}</p>
+                          
+                          {user.timezone && ( 
+                            <div className='flex items-center'>
+                              <img src="/images/globe.svg" alt="Clock" className="inline ml-4 mr-2 h-5" />
+                              <p className="text-base text-gray-800">{user.timezone}</p>
+                            </div>)}
+
                         </div>
 
 
-                        <div className="flex items-center px-8 sm:hidden mt-2">
+                        <div className="flex items-center px-8 sm:hidden">
                           <img src="/images/clock.svg" alt="Clock" className="inline mr-2 h-5" />
                           <p className="text-base text-gray-800">{formatTime(form.time)}</p>
                         </div>
-                        <div className="flex items-center px-8 sm:hidden mt-2">
-                          <img src="/images/globe.svg" alt="Clock" className="inline mr-2 h-5" />
-                          <p className="text-base text-gray-800">{user.timezone}</p>
-                        </div>
+                        {user.timezone && (
+                          <div className="flex items-center px-8 sm:hidden">
+                            <img src="/images/globe.svg" alt="Clock" className="inline mr-2 h-5" />
+                            <p className="text-base text-gray-800">{user.timezone}</p>
+                          </div>
+                        )}
 
                       </div>
                     ) : (

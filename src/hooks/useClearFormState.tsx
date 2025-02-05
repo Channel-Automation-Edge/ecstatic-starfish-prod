@@ -22,6 +22,7 @@ const useClearFormState = () => {
       phone: null,
       state: null,
       userNs: null,
+      timezone: null,
     }));
 
     setForm(prev => ({
@@ -30,9 +31,9 @@ const useClearFormState = () => {
       promo: '',
       generalOptIn: false,
       termsAndPrivacyOptIn: false,
-      contactPreferences: [],
       date: null,
       time: null,
+      concept: null,
     }));
 
     setSelectedService(null);

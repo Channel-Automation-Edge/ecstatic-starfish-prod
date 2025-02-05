@@ -1,6 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '@/context/AppContext';
 import NavButtons from '../ui/navButtons';
+import ResetButton from '../ui/resetButton';
+import Repair from '../icons/Repair';
+import Remodel from '../icons/Remodel';
 
 // Define props interface
 interface Step3SpecificationsProps {
@@ -57,44 +60,80 @@ const Step3Specifications: React.FC<Step3SpecificationsProps> = ({ onNext, onBac
     onNext();
   };
 
+  const hasAvatar = appContext.contractor?.content?.avatar;
+
   return (
     <div className="container-form">
-      <NavButtons handleBack={handleBack} handleReset={handleReset} />
+      {
+        appContext.services.length > 1 ? (
+          <NavButtons handleBack={handleBack} handleReset={handleReset} />
+        ) : (
+          <div
+            className={`absolute ${
+              hasAvatar
+                ? 'top-[-102px] custom-smallest:top-[-110px] small-stepper:top-[-115px] sm:top-[-121px] md:top-[-137px]'
+                : 'top-[-54px] custom-smallest:top-[-61px] small-stepper:top-[-67px] sm:top-[-73px] md:top-[-90px]'
+            } right-0 w-full flex justify-end p-4`}
+          >
+            <ResetButton onClick={handleReset} />
+          </div>
+        )
+      }
 
       <div className="space-y-8">
         <div className='flex justify-center text-center mb-8'>
           <div className="max-w-[40rem] text-center">
             <h1 className="heading-form"> {headingText}
-            Let us know <span className="text-accentColor">what you need </span> and let's get started!
+            Let us know <span className="text-accentColor">what you need </span>—choose one of the options below
             </h1> 
           </div>
         </div>
 
         <div className="mt-12 flex flex-col h-full">
           <div className="container-cards">
-            {["Repair", "Remodel"].map((spec) => (
-              <button
-                key={spec}
-                type="button"
-                className="cards-button"
-                onClick={() => handleSelect(spec)}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = accent_rgba + ' 0px 10px 25px -6px ';
-                  e.currentTarget.style.borderColor = accent_rgba;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = 'rgba(0, 0, 0, 0.07) 0px 10px 25px -6px';
-                  e.currentTarget.style.borderColor = 'rgba(157, 176, 197, 0.25)';
-                }}
-              >
-                <img
-                  src={`/images/${spec.toLowerCase()}.svg`}
-                  alt={`${spec.toLowerCase()} icon`}
-                  className="w-12 h-12 sm:w-14 sm:h-14 sm:mb-4 ml-2 mr-4 sm:ml-0 sm:mr-0"
-                />
-                <span className="cards-text">{spec}</span>
-              </button>
-            ))}
+            <button
+              type="button"
+              className="cards-button"
+              onClick={() => handleSelect("Repair")}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = accent_rgba + ' 0px 10px 25px -6px ';
+                e.currentTarget.style.borderColor = accent_rgba;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = 'rgba(0, 0, 0, 0.07) 0px 10px 25px -6px';
+                e.currentTarget.style.borderColor = 'rgba(157, 176, 197, 0.25)';
+              }}
+            >
+              {/* <img
+                src="/images/repair.svg"
+                alt="repair icon"
+                className="w-12 h-12 sm:w-14 sm:h-14 sm:mb-4 ml-2 mr-4 sm:ml-0 sm:mr-0"
+              /> */}
+              <Repair />
+              <span className="cards-text">Repair</span>
+            </button>
+
+            <button
+              type="button"
+              className="cards-button"
+              onClick={() => handleSelect("Remodel")}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = accent_rgba + ' 0px 10px 25px -6px ';
+                e.currentTarget.style.borderColor = accent_rgba;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = 'rgba(0, 0, 0, 0.07) 0px 10px 25px -6px';
+                e.currentTarget.style.borderColor = 'rgba(157, 176, 197, 0.25)';
+              }}
+            >
+              {/* <img
+                src="/images/remodel.svg"
+                alt="remodel icon"
+                className="w-12 h-12 sm:w-14 sm:h-14 sm:mb-4 ml-2 mr-4 sm:ml-0 sm:mr-0"
+              /> */}
+              <Remodel />
+              <span className="cards-text">Remodel</span>
+            </button>
           </div>
           {loading && (
             <div className="flex justify-center pt-20">

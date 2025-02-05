@@ -22,22 +22,22 @@ const FAQ: React.FC = () => {
 
   return (
     <div className=''>
-      <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+      <div className="">
       {/* Grid */}
-      <div className="grid md:grid-cols-5 gap-10">
-        <BlurFade delay={3 * 0.15} inView yOffset={15} className="md:col-span-2">
+      <div className="grid md:grid-cols-5 gap-5">
+        <BlurFade delay={3 * 0.15} inView yOffset={0} className="md:col-span-2">
           <div className="space-y-2 md:space-y-4 max-w-xs">
             <h2 className="section_header">
               Frequently Asked Questions
             </h2>
-            <p className="hidden md:block section_description">
+            <p className="section_description">
               Here are some of the most common questions we receive.
             </p>
           </div>
         </BlurFade>
         {/* End Col */}
 
-        <BlurFade delay={4 * 0.15} inView yOffset={15} className="md:col-span-3">
+        <BlurFade delay={4 * 0.15} inView yOffset={0} className="md:col-span-3">
           {/* Accordion */}
           <div className="hs-accordion-group divide-y divide-gray-200 dark:divide-neutral-700">
             {appContext.contractor.faqs.map((item: FAQItem, index: number) => (

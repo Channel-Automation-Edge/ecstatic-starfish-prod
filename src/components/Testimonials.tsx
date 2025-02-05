@@ -46,15 +46,15 @@ const Testimonials: React.FC = () => {
 
   return (
     <div>
-      <div className="relative flex w-full pt-16 pb-10 flex-col items-center justify-center overflow-hidden pointer-events-none">
+      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden pointer-events-none pt-6 sm:pt-10 lg:pt-12">
         <div className="hidden text-center">
-          <BlurFade delay={3 * 0.15} inView yOffset={15} className="section_header mb-[25px]">
+          <BlurFade delay={3 * 0.15} inView yOffset={0} className="section_header mb-[25px]">
             What our <span className="text-accentColor">satisfied</span> clients say about us
           </BlurFade>
           <p className="mt-2 md:mt-4 text-gray-500 dark:text-neutral-500"></p>
         </div>
 
-        <BlurFade delay={6 * 0.15} inView yOffset={15}>
+        <BlurFade delay={6 * 0.15} inView yOffset={0}>
           {/* First Marquee: Ascending order */}
           <Marquee pauseOnHover className="[--duration:20s]">
             {sortedReviews.map((review: Review) => (

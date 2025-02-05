@@ -4,22 +4,22 @@ import BlurFade from './ui/blur-fade';
 const Benefits: React.FC = () => {
   return (
     <div className=''>
-      <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+      <div className="space-y-6 sm:space-y-8">
 
-      <BlurFade delay={3 * 0.15} inView yOffset={15} className="text-center mb-12">
-          <p className="section_header">
-          Why Homeowners <span className="text-accentColor">Love Us</span>
-          </p>
-          <p className="mt-2 md:mt-4 text-gray-500 dark:text-neutral-500">
+      <BlurFade delay={3 * 0.15} inView yOffset={0} className="space-y-2 md:space-y-4">
+        <p className="section_header">
+        Why Homeowners <span className="text-accentColor">Love Us</span>
+        </p>
+        <p className="section_description">
 
-          </p>
+        </p>
       </BlurFade>
 
       {/* Grid */}
       <div className="grid sm:grid-cols-3 gap-8 md:gap-12 grid-auto-[1fr]">
 
         {/* Icon Block */}
-        <BlurFade delay={4 * 0.15} inView yOffset={15} className="relative flex gap-x-5 rounded-xl p-4">
+        <BlurFade delay={4 * 0.15} inView yOffset={0} className="relative flex gap-x-5 rounded-xl p-4">
         <div className="absolute inset-0 bg-accentLight opacity-90 rounded-xl"></div>
           <svg
             className="shrink-0 mt-1 size-8 text-accentColor dark:text-accentColor z-10"
@@ -46,7 +46,7 @@ const Benefits: React.FC = () => {
         {/* End Icon Block */}
 
         {/* Icon Block */}
-        <BlurFade delay={4.5 * 0.15} inView yOffset={15} className="relative flex gap-x-5 rounded-xl p-4">
+        <BlurFade delay={4.5 * 0.15} inView yOffset={0} className="relative flex gap-x-5 rounded-xl p-4">
         <div className="absolute inset-0 bg-accentLight opacity-90 rounded-xl"></div>
           <svg
             className="shrink-0 mt-1 size-6 text-accentColor dark:text-accentColor z-10"
@@ -75,7 +75,7 @@ const Benefits: React.FC = () => {
         {/* End Icon Block */}
 
         {/* Icon Block */}
-        <BlurFade delay={5 * 0.15} inView yOffset={15} className="relative flex gap-x-5 rounded-xl p-4">
+        <BlurFade delay={5 * 0.15} inView yOffset={0} className="relative flex gap-x-5 rounded-xl p-4">
         <div className="absolute inset-0 bg-accentLight opacity-90 rounded-xl"></div>
           <svg
             className="shrink-0 mt-1 size-6 text-accentColor dark:text-accentColor z-10"
@@ -104,7 +104,7 @@ const Benefits: React.FC = () => {
         {/* End Icon Block */}
 
         {/* Icon Block */}
-        <BlurFade delay={5.5 * 0.15} inView yOffset={15} className="relative h- flex gap-x-5 rounded-xl p-4">
+        <BlurFade delay={5.5 * 0.15} inView yOffset={0} className="relative h- flex gap-x-5 rounded-xl p-4">
         <div className="absolute inset-0 bg-accentLight opacity-90 rounded-xl"></div>
           <svg
             className="shrink-0 mt-1 size-6 text-accentColor dark:text-accentColor z-10"
@@ -135,7 +135,7 @@ const Benefits: React.FC = () => {
         {/* End Icon Block */}
 
         {/* Icon Block */}
-        <BlurFade delay={6 * 0.15} inView yOffset={15}  className="relative flex gap-x-5 rounded-xl p-4">
+        <BlurFade delay={6 * 0.15} inView yOffset={0}  className="relative flex gap-x-5 rounded-xl p-4">
         <div className="absolute inset-0 bg-accentLight opacity-90 rounded-xl"></div>
           <svg
             className="shrink-0 mt-1 size-8 text-accentColor dark:text-accentColor z-10"
@@ -162,7 +162,7 @@ const Benefits: React.FC = () => {
         {/* End Icon Block */}
 
         {/* Icon Block */}
-        <BlurFade delay={6.5 * 0.15} inView yOffset={15} className="relative flex gap-x-5 rounded-xl p-4">
+        <BlurFade delay={6.5 * 0.15} inView yOffset={0} className="relative flex gap-x-5 rounded-xl p-4">
         <div className="absolute inset-0 bg-accentLight opacity-90 rounded-xl"></div>
           <svg
             className="shrink-0 mt-1 size-8 text-accentColor dark:text-accentColor z-10"

@@ -6,6 +6,7 @@ import { AppContext } from '@/context/AppContext';
 import useClearFormState from '@/hooks/useClearFormState.tsx';
 import { InteractiveHoverButton } from './ui/interactive-hover-button';
 import {PromoModal, DialogTitle, Dialog} from '@/components/PromoModal';
+import useFormPersistence from '@/hooks/useFormPersistence';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -28,6 +29,8 @@ const Hero = () => {
   const stateParam = urlParams.get('state') || '';
   const zipParam = urlParams.get('zip') || '';
   const [slug, setSlug] = useState('');
+  const initialStep = services.length > 1 ? 1 : 2;
+  const [, , resetCurrentStep] = useFormPersistence('formStep', initialStep);
 
   useEffect(() => {
     if (appContext && appContext.contractor) {
@@ -88,6 +91,7 @@ const Hero = () => {
 
     // If formId is not set, create a new formId
     if (!formId) {
+      resetCurrentStep();
       clearFormState();
 
       const dateTime = new Date().toISOString().replace(/[-:.T]/g, '').slice(0, 14); // YYYYMMDDHHMMSS format
@@ -127,9 +131,9 @@ const Hero = () => {
 
         <div className="relative z-[2] w-full overflow-hidden"> {/* Added z-index to content container */}
           
-          <div className="z-10 lg:w-8/12 flex items-left justify-left flex-col px-4 sm:pl-16 mt-0 space-y-6 md:space-y-6 pb-4">
+          <div className="z-10 lg:w-8/12 flex items-left justify-left flex-col px-4 sm:pl-16 mt-0 space-y-6 md:space-y-8 pb-4">
             <p
-              className="block font-display text-left text-5xl lg:text-6xl font-semibold text-white mt-14 lg:mt-20">
+              className="block font-display text-left text-4xl md:text-5xl lg:text-6xl font-semibold text-white">
               {heroH1}
             </p>
 
@@ -137,7 +141,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 1 }}
               transition={{ delay: 0.6 }}
-              className="text-base lg:text-lg text-white/80 text-left"
+              className="text-sm md:text-base lg:text-lg text-white/80 text-left"
             >
               {firstnameParam ? `Hi ${firstnameParam}! ` : ''}{subheadingText1}
             </motion.p>

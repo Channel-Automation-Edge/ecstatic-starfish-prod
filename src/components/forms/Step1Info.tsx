@@ -272,9 +272,28 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
                     id="zip"
                     name="zip"
                     type="text"
+                    onChange={formik.handleChange}
                     value={formik.values.zip}
+                    onBlur={formik.handleBlur}
+                    maxLength={5}
                     className="input-field"
                   />
+                  {formik.errors.zip ? (
+                    <img
+                      src="/images/warning.svg"
+                      alt="Invalid"
+                      className="absolute right-3 top-10 w-6"
+                    />
+                  ) : (
+                    <img
+                      src="/images/tick.svg"
+                      alt="Valid"
+                      className="absolute right-6 top-11 w-4"
+                    />
+                  )}
+                  {formik.touched.zip && formik.errors.zip && (
+                    <div className="error text-sm text-red-500">{formik.errors.zip}</div>
+                  )}
                 </div>
 
                 <div className="relative">

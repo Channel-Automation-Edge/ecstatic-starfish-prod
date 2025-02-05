@@ -9,6 +9,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import "vanilla-cookieconsent/dist/cookieconsent.css";
 import {central} from '@/lib/supabaseClient';
 import { AppContext } from '@/context/AppContext';
+import ThankYou from './pages/ThankYou';
 
 declare global {
   interface Window {
@@ -207,11 +208,12 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path='/' element={<Home />} />
         <Route path='/:slug' element={<Home />} />
         <Route path='/request-quotes/:slug' element={<RequestQuote />} />
-        <Route path='/request-quotes' element={<RequestQuote />} />
         <Route path='/cookie-policy/:slug' element={<CookiePolicy />} />
         <Route path='/privacy-policy/:slug' element={<PrivacyPolicy />} />
+        <Route path='/summary/:slug' element={<ThankYou />} />
         {/* <Route path="*" element={<RequestQuote />} /> */}
       </Routes>
     </>

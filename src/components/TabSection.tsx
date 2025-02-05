@@ -8,13 +8,13 @@ const TabSection: React.FC = () => {
       <div className="relative p-6 md:p-16">
         {/* Grid */}
         <div className="relative z-10 lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
-          <BlurFade delay={3 * 0.15} inView yOffset={15} className="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-8 lg:order-2">
+          <BlurFade delay={3 * 0.15} inView yOffset={0} className="mb-10 lg:mb-0 lg:col-span-6 lg:col-start-8 lg:order-2">
             <h2 className="text-2xl text-gray-800 font-semibold sm:text-3xl dark:text-neutral-200">
               Here’s What You’ll <span className="text-accentColor">Gain</span>
             </h2>
 
             {/* Tab Navs */}
-            <BlurFade delay={5* 0.15} inView yOffset={15}>
+            <BlurFade delay={5* 0.15} inView yOffset={0}>
             <nav className="grid gap-4 mt-5 md:mt-10" aria-label="Tabs" role="tablist" aria-orientation="vertical">
               <button
                 type="button"
@@ -131,7 +131,7 @@ const TabSection: React.FC = () => {
           </BlurFade>
           {/* End Col */}
 
-          <BlurFade delay={7 * 0.15} inView yOffset={15} className="lg:col-span-6">
+          <BlurFade delay={7 * 0.15} inView yOffset={0} className="lg:col-span-6">
             <div className="relative">
               {/* Tab Content */}
               <div>

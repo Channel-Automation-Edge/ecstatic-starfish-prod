@@ -35,10 +35,13 @@ const ParentForm = () => {
   useEffect(() => {
     if (services.length === 1) {
       setSelectedService(services[0]);
+
+      // If we are on step 1 and there is only one service, move to step 2
+      if (currentStep === 1) {
+        setCurrentStep(2)
+      }
     }
-    if (currentStep === 1) {
-      setCurrentStep(2)
-    }
+    
   }, [services, setSelectedService]);
   
   useEffect(() => {
@@ -85,9 +88,8 @@ const ParentForm = () => {
   };
 
   const handleSubmitted = () => {
-    navigateWithParams(`/${slug}`);
+    navigateWithParams(`/summary/${slug}`);
     resetCurrentStep();
-    clearFormState();
 
     setForm(prev => ({ ...prev, formId: null })); 
     localStorage.removeItem('formID');

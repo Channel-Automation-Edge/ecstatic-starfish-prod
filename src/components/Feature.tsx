@@ -25,15 +25,15 @@ const Feature: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div className="">
       {/* Grid */}
       <div className="md:grid md:grid-cols-2 md:items-center md:gap-12 xl:gap-32">
-        <BlurFade delay={3 * 0.15} inView yOffset={15}>
+        <BlurFade delay={3 * 0.15} inView yOffset={0} className="mb-5 sm:mb-10 lg:mb-0">
           <img className="rounded-xl" src={imageUrl} alt="Features Image" />
         </BlurFade>
         {/* End Col */}
 
-        <BlurFade delay={5 * 0.15} inView yOffset={15} className="mt-5 sm:mt-10 lg:mt-0">
+        <BlurFade delay={5 * 0.15} inView yOffset={0} className="">
           <div className="space-y-6 sm:space-y-8">
             {/* Title */}
             <div className="space-y-2 md:space-y-4">

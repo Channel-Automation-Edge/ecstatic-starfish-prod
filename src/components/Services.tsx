@@ -89,7 +89,7 @@ const Services: React.FC<ServicesProps> = ({ services, handleServiceSelect }) =>
               </BlurFade>
             ))
           ) : (
-            <BlurFade delay={3 * 0.15} yOffset={15} className="text-center text-gray-500 mt-8">
+            <BlurFade delay={3 * 0.15} yOffset={0} className="text-center text-gray-500 mt-8">
               Sorry, we don't serve your area at the moment.
             </BlurFade>
           )}
