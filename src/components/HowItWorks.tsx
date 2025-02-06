@@ -5,8 +5,8 @@ import BlurFade from './ui/blur-fade';
 const HowItWorks: React.FC = () => {
   return (
     <div className='bg-white'>
-      <div className="space-y-6 sm:space-y-8">
-        <BlurFade delay={3 * 0.15}  yOffset={0} className="space-y-2 md:space-y-4 text-center">
+      <div className="space-y-6 sm:space-y-8 pointer-events-none">
+        <BlurFade inView delay={1 * 0.15}  yOffset={0} className="space-y-2 md:space-y-4 text-center">
             <h2 className="section_header">
             Here's What to <span className="text-accentColor">Expect</span>
             </h2>
@@ -14,9 +14,9 @@ const HowItWorks: React.FC = () => {
 
             </p>
         </BlurFade>
-        <BlurFade delay={4 * 0.15}  yOffset={0} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 sm:px-6 lg:px-8 mx-auto">
+        <BlurFade inView delay={2 * 0.15}  yOffset={0} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 sm:px-6 lg:px-8 mx-auto">
 
-        <BlurFade delay={6 * 0.15}  yOffset={0} className="relative flex sm:pe-6">
+        <BlurFade inView delay={3 * 0.15}  yOffset={0} className="relative flex sm:pe-6">
           <img src="/images/step3.svg" alt="Step 1" className="shrink-0 size-10 mt-1" />
           <div className="ms-6">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white">1: Appointment Confirmation</h3>
@@ -26,7 +26,7 @@ const HowItWorks: React.FC = () => {
           </div>
         </BlurFade>
 
-        <BlurFade delay={8 * 0.15}  yOffset={0} className="relative flex sm:pe-6">
+        <BlurFade inView delay={4 * 0.15}  yOffset={0} className="relative flex sm:pe-6">
           <img src="/images/step1.svg" alt="Step 2" className="shrink-0 size-10 mt-1" />
           <div className="ms-6">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white">2: In-Home Assessment</h3>
@@ -38,7 +38,7 @@ const HowItWorks: React.FC = () => {
 
 
 
-        <BlurFade delay={10 * 0.15}  yOffset={0} className="relative flex sm:pe-6">
+        <BlurFade inView delay={5 * 0.15}  yOffset={0} className="relative flex sm:pe-6">
           <img src="/images/step2.svg" alt="Step 3" className="shrink-0 size-10 mt-1" />
           <div className="ms-6">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white">3: Personalized Quote</h3>

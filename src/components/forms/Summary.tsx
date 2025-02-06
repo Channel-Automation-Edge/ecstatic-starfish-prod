@@ -29,6 +29,7 @@ import { Dialog, DialogContent,
 import { Button } from '@/components/ui/button';
 import ConfirmCheck from '../icons/ConfirmCheck';
 import NavButtons from '../ui/navButtons';
+import Solar from '../icons/Solar';
 
 
 // Icon mapping
@@ -49,6 +50,7 @@ const iconMapping: Record<string, JSX.Element> = {
   'Siding': <Siding />,
   'Shower': <Shower />,
   'Windows': <Windows />,
+  'Solar': <Solar />,
   // Add more mappings as needed
 };
 
@@ -333,7 +335,7 @@ const Summary: React.FC<SummaryProps> = ({ onNext, onBack, onReset }) => {
 									name="generalOptIn"
 									checked={form.generalOptIn}
 									onChange={handleGeneralOptInChange}
-									className="size-4 rounded border-gray-300"
+									className="size-4 rounded border-gray-300 text-accentColor focus:ring-accentColor"
 								/>
 								<label htmlFor="generalOptIn" className="ml-4 block text-base text-gray-900 dark:text-gray-300">{!form.generalOptIn && <span className="text-red-500">* </span>}
                 Yes, I agree to receiving updates about my free assessment. I understand that I can opt-out anytime.

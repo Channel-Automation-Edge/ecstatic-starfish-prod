@@ -25,7 +25,7 @@ const FAQ: React.FC = () => {
       <div className="">
       {/* Grid */}
       <div className="grid md:grid-cols-5 gap-5">
-        <BlurFade delay={3 * 0.15} inView yOffset={0} className="md:col-span-2">
+        <BlurFade delay={1 * 0.15} inView yOffset={0} className="md:col-span-2 pointer-events-none">
           <div className="space-y-2 md:space-y-4 max-w-xs">
             <h2 className="section_header">
               Frequently Asked Questions
@@ -37,7 +37,7 @@ const FAQ: React.FC = () => {
         </BlurFade>
         {/* End Col */}
 
-        <BlurFade delay={4 * 0.15} inView yOffset={0} className="md:col-span-3">
+        <BlurFade delay={3 * 0.15} inView yOffset={0} className="md:col-span-3">
           {/* Accordion */}
           <div className="hs-accordion-group divide-y divide-gray-200 dark:divide-neutral-700">
             {appContext.contractor.faqs.map((item: FAQItem, index: number) => (

@@ -54,7 +54,7 @@ const Testimonials: React.FC = () => {
           <p className="mt-2 md:mt-4 text-gray-500 dark:text-neutral-500"></p>
         </div>
 
-        <BlurFade delay={6 * 0.15} inView yOffset={0}>
+        <BlurFade delay={1 * 0.15} inView yOffset={0}>
           {/* First Marquee: Ascending order */}
           <Marquee pauseOnHover className="[--duration:20s]">
             {sortedReviews.map((review: Review) => (

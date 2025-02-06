@@ -27,13 +27,13 @@ const Feature: React.FC = () => {
   return (
     <div className="">
       {/* Grid */}
-      <div className="md:grid md:grid-cols-2 md:items-center md:gap-12 xl:gap-32">
-        <BlurFade delay={3 * 0.15} inView yOffset={0} className="mb-5 sm:mb-10 lg:mb-0">
+      <div className="md:grid md:grid-cols-2 md:items-center md:gap-12 xl:gap-32 pointer-events-none">
+        <BlurFade delay={1 * 0.15} inView yOffset={0} className="mb-5 sm:mb-10 lg:mb-0">
           <img className="rounded-xl" src={imageUrl} alt="Features Image" />
         </BlurFade>
         {/* End Col */}
 
-        <BlurFade delay={5 * 0.15} inView yOffset={0} className="">
+        <BlurFade delay={3 * 0.15} inView yOffset={0} className="">
           <div className="space-y-6 sm:space-y-8">
             {/* Title */}
             <div className="space-y-2 md:space-y-4">

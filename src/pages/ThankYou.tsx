@@ -5,7 +5,6 @@ import type { ConfettiRef } from '@/components/ui/confetti';
 import Confetti from '@/components/ui/confetti';
 import HowItWorks from '@/components/HowItWorks';
 import NavBar from '@/components/NavBar';
-import { motion } from 'framer-motion';
 import { AppContext } from '../context/AppContext';
 import Footer from '@/components/Footer';
 import BlurFade from '@/components/ui/blur-fade';
@@ -27,6 +26,7 @@ import Siding from '@/components/icons/Siding';
 import Shower from '@/components/icons/Shower';
 import Windows from '@/components/icons/Windows';
 import { InteractiveHoverButton } from '@/components/ui/interactive-hover-button';
+import Solar from '@/components/icons/Solar';
 
 // Icon mapping
 const iconMapping: Record<string, JSX.Element> = {
@@ -46,6 +46,7 @@ const iconMapping: Record<string, JSX.Element> = {
   'Siding': <Siding />,
   'Shower': <Shower />,
   'Windows': <Windows />,
+  'Solar': <Solar />,
   // Add more mappings as needed
 };
 
@@ -167,26 +168,20 @@ const ThankYou: React.FC = () => {
 
         <div className="relative z-[2] w-full overflow-hidden"> 
           <div className="z-10 flex items-center justify-center flex-col px-4 sm:pl-16 mt-0 space-y-6 md:space-y-8 py-14 md:py-16 lg:py-20">
-            <p
-              className="block font-display text-center text-4xl md:text-5xl lg:text-6xl font-semibold text-white max-w-xl">
-              Your Dream Project is Taking Shape!
-            </p>
+            <BlurFade delay={2 * 0.20} yOffset={0}
+              className="block font-display text-center text-4xl md:text-5xl lg:text-6xl font-semibold text-white max-w-4xl pointer-events-none">
+              Your Appointment is Confirmed - See You Soon!
+            </BlurFade>
 
-            <motion.p
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 1 }}
-              transition={{ delay: 0.6 }}
-              className="text-sm md:text-base lg:text-lg text-white/80 text-center max-w-lg"
+            <BlurFade delay={3 * 0.20} yOffset={0}
+              className="text-sm md:text-base lg:text-lg text-white/80 text-center max-w-4xl pointer-events-none"
             >
-              Here's an overview of your consultation details. Take a moment to review everything and make sure everything looks great
-            </motion.p>
+              Thank you for booking with us! Your appointment has been successfully confirmed. You'll receive a confirmation email with all the details shortly. We look forward to seeing you!
+            </BlurFade>
 
-            <motion.div initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 1 }}
-              transition={{ delay: 0.7 }} className="mt-5 lg:mt-8 flex flex-col items-start gap-2 sm:flex-row sm:gap-3">
-              
+            <BlurFade delay={4 * 0.20} yOffset={0} className="mt-5 lg:mt-8 flex flex-col items-start gap-2 sm:flex-row sm:gap-3"> 
               <InteractiveHoverButton className='bg-accentColor text-white border-transparent text-sm rounded-lg py-3' onClick={handleGoHome}>Go to Home Page</InteractiveHoverButton>
-            </motion.div>
+            </BlurFade>
           </div>
         </div>
       </div>
@@ -194,18 +189,18 @@ const ThankYou: React.FC = () => {
 
 
       <div className='max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12 lg:py-14  space-y-12 sm:space-y-20 lg:space-y-24'>
-        <HowItWorks />
+
 
         {/* Appointment Details */}
-        <div className="space-y-6 sm:space-y-8">
-          <BlurFade delay={3 * 0.15} inView yOffset={0} className='text-center'>
+        <div className="space-y-6 sm:space-y-8 pointer-events-none">
+          {/* <BlurFade delay={3 * 0.15} inView yOffset={0} className='text-center'>
             <h2 className="section_header">
             Here Are <span className="text-accentColor">Your Appointment</span> Details
             </h2>
-          </BlurFade>
+          </BlurFade> */}
           <div className="flex justify-center"> 
             <div className="flex flex-wrap gap-4 max-w-screen-lg w-full sm:px-8">
-              <div className="flex flex-col gap-4 flex-grow min-w-[250px] w-[600px] max-w-[100%]">
+            <BlurFade delay={6 * 0.15} yOffset={0} className="flex flex-col gap-4 flex-grow min-w-[250px] w-[600px] max-w-[100%]">
                 <div className="bg-white border border-gray-200 rounded-md">
                   <div className="text-left mx-4 my-4">
                     <div className="flex items-center">
@@ -233,8 +228,8 @@ const ThankYou: React.FC = () => {
                     <hr className='mb-4'></hr>
                     <p className="text-sm font-semibold text-gray-800 mb-3">Scheduled Date and Time</p>
                     {form.date && form.time ? (
-                      <div className="flex flex-wrap justify-between my-4 w-auto bg-gray-100 rounded-md py-4">
-                        <div className="flex items-center px-8 min-w-[200px]">
+                      <div className="flex flex-wrap justify-between my-4 w-auto bg-gray-100 rounded-md pb-4 space-y-2">
+                        <div className="flex items-center px-8 min-w-[200px] mt-2">
                           <img src="/images/calendar.svg" alt="Calendar" className="inline mr-2 h-5" />
                           <p className="text-base text-gray-800">{formatDate(form.date)}</p>
                         </div>
@@ -242,19 +237,26 @@ const ThankYou: React.FC = () => {
                         <div className="hidden sm:flex items-center px-8">
                           <img src="/images/clock.svg" alt="Clock" className="inline mr-2 h-5" />
                           <p className="text-base text-gray-800">{formatTime(form.time)}</p>
-                          <img src="/images/globe.svg" alt="Clock" className="inline ml-4 mr-2 h-5" />
-                          <p className="text-base text-gray-800">{user.timezone}</p>
+
+                          {user.timezone && ( 
+                            <div className='flex items-center'>
+                              <img src="/images/globe.svg" alt="Clock" className="inline ml-4 mr-2 h-5" />
+                              <p className="text-base text-gray-800">{user.timezone}</p>
+                            </div>)}
+
                         </div>
 
 
-                        <div className="flex items-center px-8 sm:hidden mt-2">
+                        <div className="flex items-center px-8 sm:hidden">
                           <img src="/images/clock.svg" alt="Clock" className="inline mr-2 h-5" />
                           <p className="text-base text-gray-800">{formatTime(form.time)}</p>
                         </div>
-                        <div className="flex items-center px-8 sm:hidden mt-2">
-                          <img src="/images/globe.svg" alt="Clock" className="inline mr-2 h-5" />
-                          <p className="text-base text-gray-800">{user.timezone}</p>
-                        </div>
+                        {user.timezone && (
+                          <div className="flex items-center px-8 sm:hidden">
+                            <img src="/images/globe.svg" alt="Clock" className="inline mr-2 h-5" />
+                            <p className="text-base text-gray-800">{user.timezone}</p>
+                          </div>
+                        )}
 
                       </div>
                     ) : (
@@ -268,9 +270,9 @@ const ThankYou: React.FC = () => {
                   </div>
                 </div>
                 
-              </div>
+              </BlurFade>
 
-              <div className="flex-grow min-w-[250px] max-w-[100%] bg-white border border-gray-200 rounded-md h-auto">
+              <BlurFade delay={4 * 0.15} yOffset={0} className="flex-grow min-w-[250px] max-w-[100%] bg-white border border-gray-200 rounded-md h-auto">
                 <div className='text-left mx-4 my-4'>
                   <p className='text-lg font-semibold text-gray-800 mb-3'>Customer Information</p>
                   <hr className='mb-4'></hr>
@@ -299,13 +301,14 @@ const ThankYou: React.FC = () => {
                     {user.zip}, {user.state}
                   </p>
                 </div>
-              </div>
+              </BlurFade>
             </div>
           </div>
         </div>
+        <HowItWorks />
         
         {/* video  */}
-        <BlurFade delay={3 * 0.15} inView yOffset={0} className="relative">
+        <BlurFade delay={6 * 0.15} inView yOffset={0} className="relative">
           <HeroVideoDialog
             className="dark:hidden block"
             animationStyle="from-center"
