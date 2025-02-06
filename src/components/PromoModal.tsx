@@ -63,15 +63,17 @@ const PromoModal: React.FC<PromoModalProps> = ({ onButtonClick }) => {
         <DialogPrimitive.Portal>
           <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out" />
           <DialogPrimitive.Content
-            className="fixed left-[50%] top-[50%] z-50 grid w-full h-[500px] max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg items-end"
+            className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 pb-4 small-stepper:pb-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg items-end"
             style={{
               backgroundImage: `url(${backgroundImage})`,
-              backgroundSize: 'cover', // Adjusts the size of the background image to fit within the content
+              backgroundSize: 'cover',
               backgroundPosition: 'center',
+              aspectRatio: '1.024', // Approximately 512 / 500
             }}
           >
+
             <button 
-              className="w-full h-auto py-5 px-4 max-h-12 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent accentColor text-white bg-red-600 transform transition-transform hover:bg-red-700"
+              className="w-full h-auto py-2 custom-smallest:py-4 small-stepper:py-5 px-4 max-h-12 inline-flex justify-center items-center gap-x-2 text-xs small-stepper:text-sm font-semibold rounded-lg border border-transparent accentColor text-white bg-red-600 transform transition-transform hover:bg-red-700"
               onClick={onButtonClick}
             >
               Claim This Offer!
