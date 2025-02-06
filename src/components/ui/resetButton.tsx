@@ -59,7 +59,7 @@ const ResetButton: React.FC<ResetButtonProps> = ({ onClick }) => {
               <Button className='bg-gray-200 hover:bg-gray-300 text-gray-800'>Cancel</Button>
             </DialogClose>
             <DialogClose asChild>
-              <Button className='bg-accentColor hover:bg-accentDark' onClick={handleConfirm}>Reset Form</Button>
+              <Button className='bg-accentColor hover:bg-accentDark mb-2' onClick={handleConfirm}>Reset Form</Button>
             </DialogClose>
           </DialogFooter>
         </DialogContent>

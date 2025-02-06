@@ -424,7 +424,7 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
                 </div>
               )}
 
-              <div className="mt-4 grid">
+              <div className="mt-4 grid sticky bottom-4">
                 <button
                   type="submit"
                   className={`w-full py-5 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent ${

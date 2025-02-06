@@ -44,6 +44,7 @@ const ParentForm = () => {
     
   }, [services, setSelectedService]);
   
+  // Set the slug
   useEffect(() => {
     if (appContext && appContext.contractor) {
       setSlug(appContext.contractor.slug);
@@ -54,6 +55,14 @@ const ParentForm = () => {
     const currentParams = new URLSearchParams(location.search);
     navigate(`${path}?${currentParams.toString()}`);
   };
+
+  // Scroll to top when the step changes
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // Use smooth scrolling
+    });
+  }, [currentStep]);
 
   const handleNextStep = () => {
     if (currentStep === 3) {

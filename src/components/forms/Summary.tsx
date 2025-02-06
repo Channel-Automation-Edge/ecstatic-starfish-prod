@@ -326,7 +326,7 @@ const Summary: React.FC<SummaryProps> = ({ onNext, onBack, onReset }) => {
 						</div>
 					</div>
 
-					<div className="mt-4 flex justify-center items-center">
+					<div className="mt-4 pb-4 flex justify-center items-center sticky bottom-0 bg-gray-50">
 						<div className="justify-center sm:mx-8 w-[960px]">
 							<div className="flex items-center mt-4">
 								<input
@@ -341,14 +341,6 @@ const Summary: React.FC<SummaryProps> = ({ onNext, onBack, onReset }) => {
                 Yes, I agree to receiving updates about my free assessment. I understand that I can opt-out anytime.
 								</label>
 							</div>
-							{form.generalOptIn && (
-								<div> 
-									<div className="mt-4 text-sm text-gray-600 dark:text-neutral-400">
-                    By checking the box above, I provide my ESIGN and express written consent for {appContext.contractor.name} and its authorized partners to contact me at the phone number and email address I have provided in this form. This may include marketing communications sent using automated technology, such as calls, texts, or emails. I understand that this consent is not required to make a purchase.
-									</div>
-								</div>
-							)}
-
 							<button
 								onClick={handleConfirmBooking}
 								className={`mt-4 w-full py-5 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent ${
@@ -367,6 +359,17 @@ const Summary: React.FC<SummaryProps> = ({ onNext, onBack, onReset }) => {
 						</div>
 					</div>
 				</div>
+        <div className="mt-2 sm:mt-4 flex justify-center items-center">
+          <div className="justify-center sm:mx-8 w-[960px]">
+            {form.generalOptIn && (
+              <div> 
+                <div className="text-sm text-gray-600 dark:text-neutral-400">
+                  By checking the box above, I provide my ESIGN and express written consent for {appContext.contractor.name} and its authorized partners to contact me at the phone number and email address I have provided in this form. This may include marketing communications sent using automated technology, such as calls, texts, or emails. I understand that this consent is not required to make a purchase.
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
 			</div>
 			<Dialog>
         <DialogTrigger asChild>

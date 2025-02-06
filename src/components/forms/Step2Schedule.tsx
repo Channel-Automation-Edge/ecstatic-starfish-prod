@@ -148,7 +148,7 @@ const Step2Schedule: React.FC<Step2ScheduleProps> = ({ onNext, onReset, onBack }
               )}
             </BlurFade>
           </div>
-          <div className="mt-4 flex flex-col space-y-4">
+          <div className="mt-4 flex flex-col space-y-4 sticky bottom-4">
             <button
               type="submit"
               className={`w-full py-5 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent ${
