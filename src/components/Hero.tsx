@@ -32,13 +32,7 @@ const Hero = () => {
   const [slug, setSlug] = useState('');
   const initialStep = services.length > 1 ? 1 : 2;
   const [, , resetCurrentStep] = useFormPersistence('formStep', initialStep);
-
-  useEffect(() => {
-    if (appContext && appContext.contractor) {
-      setSlug(appContext.contractor.slug);
-    }
-  }, [appContext, appContext.contractor]);
-
+  const [heroMedia, setHeroMedia] = useState('');
 
   // Default content
   const defaultLede = zipParam
@@ -54,6 +48,24 @@ const Hero = () => {
   const [buttonText, setButtonText] = useState(heroCtaLabel);
   const [, setSubheadingText] = useState("Or select a service to get started");
   const [subheadingText1, setSubheadingText1] = useState(heroLede);
+
+  useEffect(() => {
+    if (appContext && appContext.contractor) {
+      setSlug(appContext.contractor.slug);
+    }
+  }, [appContext, appContext.contractor]);
+
+  // Determine the hero media
+  useEffect(() => {
+    if (contractor.content.b_roll) {
+      setHeroMedia(contractor.content.b_roll);
+    } else if (contractor.content.bg_photo) {
+      setHeroMedia(contractor.content.bg_photo);
+    } else {
+      setHeroMedia('/images/feature.jpg');
+    }
+  }, [contractor.content.b_roll, contractor.content.bg_photo]);
+  
   
   // Update button text based on form progress
   useEffect(() => {
@@ -112,21 +124,28 @@ const Hero = () => {
     navigateWithParams(`/request-quotes/${slug}`);
   };
 
-  const bRoll = contractor.content.b_roll || 'https://storage.googleapis.com/channel_automation/Webassets/video/homeprojectparterns-hero_9.0.10.webm'; // Get hero video from contractor content
+  // const bRoll = contractor.content.b_roll || 'https://storage.googleapis.com/channel_automation/Webassets/video/homeprojectparterns-hero_9.0.10.webm'; // Get hero video from contractor content
 
   return (
     <div>
       {/* <NavBar2 /> */}
       <div className="relative flex items-center" style={{ height: 'calc(100vh - 64px)' }}>
-        <div className="absolute inset-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-            src={bRoll}
-          ></video>
+      <div className="absolute inset-0">
+          {heroMedia.endsWith('.webm') || heroMedia.endsWith('.mp4') ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+              src={heroMedia}
+            ></video>
+          ) : (
+            <div
+              className="w-full h-full bg-cover bg-top"
+              style={{ backgroundImage: `url(${heroMedia})` }}
+            ></div>
+          )}
         </div>
         <div className="absolute inset-0 bg-[#12121d99] opacity-100 z-[1]"></div> {/* Moved overlay after video and added z-index */}
 

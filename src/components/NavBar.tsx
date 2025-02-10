@@ -28,11 +28,11 @@ const Navbar  = () => {
     <div className="sticky top-0 bg-white z-50 shadow-md">
       <header className="">
         <div className="mx-auto w-full max-w-screen-xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+          <div className="flex h-16  items-center justify-between">
             <div className="md:flex md:items-center md:gap-12 ">
               <a className="block text-accent" href={newUrl}>
                 <span className="sr-only">Home</span>
-                <img src={logoSrc} alt="Logo" className="h-full max-h-16 max-w-48 sm:max-w-72" />
+                <img src={logoSrc} alt="Logo" className="py-2 h-full max-h-16 max-w-48 sm:max-w-72" />
               </a>
             </div>
             <div className='flex items-center justify-end gap-2 sm:gap-4'>

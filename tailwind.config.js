@@ -84,7 +84,7 @@ export default {
   				},
   				to: {
   					transform: 'translateX(calc(-100% - var(--gap)))'
-  				}
+  				}	
   			},
   			'marquee-vertical': {
   				from: {
