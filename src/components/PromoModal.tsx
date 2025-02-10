@@ -68,7 +68,7 @@ const PromoModal: React.FC<PromoModalProps> = ({ onButtonClick }) => {
               backgroundImage: `url(${backgroundImage})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              aspectRatio: '1.024', // Approximately 512 / 500
+              aspectRatio: '0.909', // Approximately 512 / 500
             }}
           >
 
