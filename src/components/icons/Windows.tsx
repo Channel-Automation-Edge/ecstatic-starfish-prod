@@ -74,7 +74,7 @@ const Windows: React.FC = () => {
         ></path>
         <path
           d="M496.995 473.322H471.48v38.659h25.516a9.216 9.216 0 0 0 9.216-9.216v-20.227a9.217 9.217 0 0 0-9.217-9.216z"
-          fill="#b14418"
+          fill={darker}
           className=""
         ></path>
       </g>
