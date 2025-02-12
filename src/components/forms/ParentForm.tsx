@@ -123,7 +123,7 @@ const ParentForm = () => {
             <img
             src={avatar}
             alt="Avatar"
-            className="w-12 h-12 custom-smallest:w-14 custom-smallest:h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full border-2 border-accentLight object-cover"
+            className="w-12 h-12 custom-smallest:w-14 custom-smallest:h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full border-2 border-gray-100 object-cover"
           />
           )}
           </div>

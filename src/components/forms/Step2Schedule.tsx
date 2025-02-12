@@ -1,9 +1,9 @@
 "use client";
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { AppContext } from '@/context/AppContext';
 import { Calendar } from '@/components/ui/calendar';
-import { format } from 'date-fns';
+import { format, getDay } from 'date-fns';
 import BlurFade from '@/components/ui/blur-fade';
 import NavButtons from '../ui/navButtons';
 
@@ -12,6 +12,9 @@ interface Step2ScheduleProps {
   onReset: () => void;
   onBack: () => void;
 }
+
+// Define a type for the valid keys of the timeSlots object
+type DayOfWeek = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
 
 const Step2Schedule: React.FC<Step2ScheduleProps> = ({ onNext, onReset, onBack }) => {
   const appContext = useContext(AppContext);
@@ -22,10 +25,23 @@ const Step2Schedule: React.FC<Step2ScheduleProps> = ({ onNext, onReset, onBack }
 
   const { form, setForm, contractor } = appContext;
   const [loading, setLoading] = useState<boolean>(false); // State to control spinner
+  const [selectedDayTimeSlots, setSelectedDayTimeSlots] = useState<string[]>([]); // State to store time slots for the selected day
 
-  const timeSlots = contractor.time_slots && contractor.time_slots.length > 0
-    ? contractor.time_slots
-    : ['10:00 AM', '11:00 AM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM', '8:00 PM'];
+  // Updated time slots to use an object with days of the week as keys
+  const defaultTimeSlots: Record<DayOfWeek, string[]> = {
+    Monday: ['10:00', '13:00', '14:00', '15:00', '17:00', '18:00'],
+    Tuesday: ['13:00', '14:00', '16:00', '17:00', '20:00'],
+    Wednesday: ['11:00', '13:00', '14:00', '15:00', '18:00', '19:00'],
+    Thursday: ['13:00', '14:00', '16:00', '17:00', '20:00'],
+    Friday: ['11:00', '13:00', '14:00', '15:00', '18:00', '19:00'],
+    Saturday: ['10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'],
+    Sunday: [], // No time slots for Sunday
+  };
+
+  // Parse contractor.time_slots if it exists, otherwise use defaultTimeSlots
+  const timeSlots: Record<DayOfWeek, string[]> = contractor.time_slots
+    ? contractor.time_slots // Parse JSONB data
+    : defaultTimeSlots;
 
   const formik = useFormik({
     initialValues: {
@@ -60,28 +76,41 @@ const Step2Schedule: React.FC<Step2ScheduleProps> = ({ onNext, onReset, onBack }
     if (date) {
       const formattedDate = format(date, 'yyyy-MM-dd');
       formik.setFieldValue('date', formattedDate);
+
+      // Get the day of the week for the selected date
+      const dayOfWeek = getDay(date);
+      const days: DayOfWeek[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const selectedDay = days[dayOfWeek];
+
+      // Set the time slots for the selected day
+      setSelectedDayTimeSlots(timeSlots[selectedDay]);
     }
   };
   
   const [rawTime, setRawTime] = useState<string>('');
 
-  const handleTimeSelect = (time: string) => {
-    // Convert time to military format
-    setRawTime(time);
-    const timeMapping: Record<string, string> = {
-      '10:00 AM': '10:00',
-      '11:00 AM': '11:00',
-      '1:00 PM': '13:00',
-      '2:00 PM': '14:00',
-      '3:00 PM': '15:00',
-      '4:00 PM': '16:00',
-      '5:00 PM': '17:00',
-      '6:00 PM': '18:00',
-      '7:00 PM': '19:00',
-      '8:00 PM': '20:00',
-    };
-    formik.setFieldValue('time', timeMapping[time]);
+  // Function to convert 24-hour time to 12-hour time
+  const convertTo12HourFormat = (time: string): string => {
+    const [hour, minute] = time.split(':');
+    const parsedHour = parseInt(hour, 10);
+    const suffix = parsedHour >= 12 ? 'PM' : 'AM';
+    const twelveHour = parsedHour % 12 || 12;
+    return `${twelveHour}:${minute} ${suffix}`;
   };
+
+  const handleTimeSelect = (time: string) => {
+    setRawTime(time);
+    formik.setFieldValue('time', time);
+  };
+  // Set initial time slots based on the current day
+  useEffect(() => {
+    const today = new Date();
+    const dayOfWeek = getDay(today);
+    const days: DayOfWeek[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const currentDay = days[dayOfWeek];
+
+    setSelectedDayTimeSlots(timeSlots[currentDay]);
+  }, [timeSlots]);
 
   return (
     <div className="container-form">
@@ -123,24 +152,30 @@ const Step2Schedule: React.FC<Step2ScheduleProps> = ({ onNext, onReset, onBack }
               <h2 className="text-center mt-6 mb-4 text-xl font-semibold text-gray-800 dark:text-neutral-200">
                 Select Time
               </h2>
-              <div
-                className="flex flex-wrap justify-center pb-2"
-                style={{ gap: '10px', marginTop: '15px', width: '100%' }}
-              >
-                {timeSlots.map((time: string) => (
-                  <button
-                    key={time}
-                    type="button"
-                    className={`py-3 px-4 w-28 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-300  ${
-                      rawTime === time ? 'bg-accentColor text-white border-accentColor hover:bg-accentColor' : 'bg-white text-gray-800 hover:bg-gray-100'
-                    }`}
-                    onClick={() => handleTimeSelect(time)}
-                  >
-                    {time}
-                  </button>
-                ))}
-              </div>
-
+              {selectedDayTimeSlots.length > 0 ? (
+                <div
+                  className="flex flex-wrap justify-center pb-2"
+                  style={{ gap: '10px', marginTop: '15px', width: '100%' }}
+                >
+                  {selectedDayTimeSlots.map((time: string) => (
+                    <button
+                      key={time}
+                      type="button"
+                      className={`py-3 px-4 w-28 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-300  ${
+                        rawTime === time ? 'bg-accentColor text-white border-accentColor hover:bg-accentColor' : 'bg-white text-gray-800 hover:bg-gray-100'
+                      }`}
+                      onClick={() => handleTimeSelect(time)}
+                    >
+                      {convertTo12HourFormat(time)}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center text-gray-700 dark:text-neutral-200">
+                  No time slots available for the selected date.
+                </div>
+              )}
+              
               {formik.values.time && (
                 <div className="mt-2 text-center text-gray-700 dark:text-neutral-200 hidden">
                   Selected Time: {formik.values.time}
