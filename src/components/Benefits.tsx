@@ -39,7 +39,7 @@ const Benefits: React.FC = () => {
             Personalized Solutions
             </h3>
             <p className="mt-1 text-gray-600 dark:text-neutral-400">
-            Get a customized assessment of your home's specific needs and receive tailored recommendations from our experienced contractors
+            Receive a customized assessment of your home's needs tailored just for you by our experienced team.
             </p>
           </div>
         </BlurFade>
@@ -68,7 +68,7 @@ const Benefits: React.FC = () => {
             Expert Advice
             </h3>
             <p className="mt-1 text-gray-600 dark:text-neutral-400">
-            Take advantage of our contractors' expertise and get valuable insights on how to improve your home's functionality, safety, and value
+            Leverage our industry expertise to discover practical ways to enhance your home's functionality, safety, and value.
             </p>
           </div>
         </BlurFade>
@@ -97,7 +97,7 @@ const Benefits: React.FC = () => {
             Priority Scheduling
             </h3>
             <p className="mt-1 text-gray-600 dark:text-neutral-400">
-            Get priority access to our contractors' schedules. This means that you'll be able to get your project started sooner, and you'll have a better chance of getting the contractor you want
+            Enjoy priority access to our schedules so you can start your project sooner and and stay on track with your home improvement goals.
             </p>
           </div>
         </BlurFade>
@@ -128,7 +128,7 @@ const Benefits: React.FC = () => {
             No Obligation
             </h3>
             <p className="mt-1 text-gray-600 dark:text-neutral-400">
-            Schedule a free consultation with no strings attached. Use the consultation to explore different options
+            Explore your options with a free consultation—no pressure, no strings attached.
             </p>
           </div>
         </BlurFade>
@@ -155,7 +155,7 @@ const Benefits: React.FC = () => {
             Accurate Estimates
             </h3>
             <p className="mt-1 text-gray-600 dark:text-neutral-400">
-            Our contractors provide detailed, itemized estimates that outline the scope of work, materials, and labor costs
+            Receive an accurate, itemized breakdown of services, materials, and costs to help you make an informed decision.
             </p>
           </div>
         </BlurFade>
@@ -182,7 +182,7 @@ const Benefits: React.FC = () => {
             Trust and Peace of Mind
             </h3>
             <p className="mt-1 text-gray-600 dark:text-neutral-400">
-            Get to know our contractors and experience the peace of mind that comes with working with trusted professionals
+            Work with a dedicated team of professionals you can trust, delivering quality craftsmanship and reliable service every step of the way.
             </p>
           </div>
         </BlurFade>
