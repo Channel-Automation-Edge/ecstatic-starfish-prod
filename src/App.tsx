@@ -210,6 +210,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/:slug' element={<Home />} />
+        <Route path='/stl/:slug' element={<Home />} />
         <Route path='/request-quotes/:slug' element={<RequestQuote />} />
         <Route path='/cookie-policy/:slug' element={<CookiePolicy />} />
         <Route path='/privacy-policy/:slug' element={<PrivacyPolicy />} />

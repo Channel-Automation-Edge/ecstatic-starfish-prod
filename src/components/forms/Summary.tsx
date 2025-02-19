@@ -144,6 +144,7 @@ const Summary: React.FC<SummaryProps> = ({ onNext, onBack, onReset }) => {
 						service_id: selectedService.id,
             is_booked: true,
             timezone: user.timezone,
+            contractor_id: contractor.id,
 					},
 				]);
 	
