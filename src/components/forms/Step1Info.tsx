@@ -49,6 +49,7 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
       email: user.email || params.get('email') || '',
       phone: initialPhone ? `+1${numericPhone}` : '',
       termsAndPrivacyOptIn: form.termsAndPrivacyOptIn || false,
+      stl: params.get('stl') === 'true' || false,
     });
     formik.setFieldTouched('termsAndPrivacyOptIn', true, true);
   }, [user, form.termsAndPrivacyOptIn]);
@@ -79,6 +80,7 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
       firstname: '',
       lastname: '',
       termsAndPrivacyOptIn: false,
+      stl: false,
     },
     validationSchema,
     validateOnMount: true,
@@ -98,6 +100,7 @@ const Step1Info: React.FC<Step1InfoProps> = ({ onNext, onReset, onBack }) => {
         address1: capitalizeWords(values.address1),
         address2: capitalizeWords(values.address2),
         city: capitalizeWords(values.city), 
+        stl: values.stl,
       }));
 
       setForm((prevForm) => ({

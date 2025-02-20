@@ -1,49 +1,12 @@
-import React, { useContext } from 'react';import Bathtub from './icons/Bathtub';
+import React, { useContext } from 'react';
 import { AppContext } from '@/context/AppContext';
-import Trowel from './icons/Trowel';
 import BlurFade from './ui/blur-fade';
-import Closet from './icons/Closet';
-import Plumbing from './icons/Plumbing';
-import Deck from './icons/Deck';
-import Doors from './icons/Doors';
-import Garage from './icons/Garage';
-import Gutter from './icons/Gutter';
-import Foundation from './icons/Foundation';
-import Flooring from './icons/Floor';
-import Kitchen from './icons/Kitchen';
-import Roofing from './icons/Roofing';
-import Siding from './icons/Siding';
-import Shower from './icons/Shower';
-import Windows from './icons/Windows';
-import Fence from './icons/Fence';
-import Solar from './icons/Solar';
+import IconComponent from '@/hooks/IconComponent';
 
 interface Service {
   id: string;
   services: { name: string };
 }
-
-// Icon mapping
-const iconMapping: Record<string, JSX.Element> = {
-  'Bath': <Bathtub />,
-  'Basement Waterproofing': <Trowel />,
-  'Closet': <Closet />,
-  'Plumbing': <Plumbing />,
-  'Deck': <Deck />,
-  'Doors': <Doors />,
-  'Fence': <Fence />,
-  'Flooring': <Flooring />,
-  'Garage': <Garage />,
-  'Gutters': <Gutter />,
-  'Foundation': <Foundation />,
-  'Kitchen': <Kitchen />,
-  'Roofing': <Roofing />,
-  'Siding': <Siding />,
-  'Shower': <Shower />,
-  'Windows': <Windows />,
-  'Solar': <Solar />,
-  // Add more mappings as needed
-};
 
 interface ServicesProps {
   services: Service[];
@@ -87,7 +50,7 @@ const Services: React.FC<ServicesProps> = ({ services, handleServiceSelect }) =>
                   e.currentTarget.style.borderColor = 'rgba(157, 176, 197, 0.25)';
                 }}
               >
-                {iconMapping[service.services.name]}
+                <IconComponent name={service.services.name} className="w-14 h-14" />
                 <span className="text-gray-800 text-base font-medium text-left sm:text-center">{service.services.name}</span>
               </BlurFade>
             ))

@@ -11,6 +11,7 @@ const useClearFormState = () => {
   const { setUser, setForm, setSelectedService } = appContext;
 
   const clearFormState = () => {
+    console.log('CLEARING FORM AND USER ...');
     setUser(prev => ({
       ...prev,
       firstname: null,
@@ -22,7 +23,9 @@ const useClearFormState = () => {
       phone: null,
       state: null,
       userNs: null,
+      zip: null,
       timezone: null,
+      stl: false,
     }));
 
     setForm(prev => ({
@@ -34,9 +37,15 @@ const useClearFormState = () => {
       date: null,
       time: null,
       concept: null,
+      isBooked: false,
     }));
 
     setSelectedService(null);
+
+    // clear local storage
+    localStorage.removeItem('user');
+    localStorage.removeItem('form');
+    localStorage.removeItem('selectedService');
   };
 
   return clearFormState;

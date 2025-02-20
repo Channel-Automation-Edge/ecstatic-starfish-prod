@@ -35,10 +35,12 @@ const ParentForm = () => {
   useEffect(() => {
     if (services.length === 1) {
       setSelectedService(services[0]);
+      console.log('test 1');
 
       // If we are on step 1 and there is only one service, move to step 2
       if (currentStep === 1) {
         setCurrentStep(2)
+        console.log('test 2');
       }
     }
     

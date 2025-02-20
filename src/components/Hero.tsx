@@ -13,33 +13,30 @@ const Hero = () => {
   const location = useLocation();
   const appContext = useContext(AppContext);
   const clearFormState = useClearFormState();
+  const param = new URLSearchParams(location.search);
 
   if (!appContext || !appContext.contractor || !appContext.services) {
     return null; // Handle the case where data is not loaded yet
   }
 
-  const capitalizeWords = (str: string | null) => {
-    if (!str) return '';
-    return str.replace(/\b\w/g, char => char.toUpperCase());
-  };
-
   const { contractor, setForm, form, services } = appContext;
-  const urlParams = new URLSearchParams(location.search);
-  const firstnameParam = capitalizeWords(urlParams.get('firstname')) || '';
-  const stateParam = urlParams.get('state') || '';
-  const zipParam = urlParams.get('zip') || '';
-  const conceptParam = urlParams.get('concept_id') || '';
   const [slug, setSlug] = useState('');
   const initialStep = services.length > 1 ? 1 : 2;
   const [, , resetCurrentStep] = useFormPersistence('formStep', initialStep);
   const [heroMedia, setHeroMedia] = useState('');
 
-  // Default content
-  const defaultLede = zipParam
-    ? `Hi ${firstnameParam}, find top contractors in ${stateParam} near ${zipParam} for your upcoming remodel and control your quotes`
-    : stateParam
-    ? `Hi ${firstnameParam}, find top contractors in ${stateParam} for your upcoming remodel and control your quotes`
-    : "Hi there, find top contractors in your area for your upcoming remodel and control your quotes";
+  // Utility function to capitalize the first letter of each word
+  const capitalizeWords = (str: string | null) => {
+    if (!str) return '';
+    return str.replace(/\b\w/g, char => char.toUpperCase());
+  };
+
+  const firstname = capitalizeWords(param.get('firstname'));
+
+  // Default content 
+  const defaultLede = firstname
+    ? `Receive a customized assessment of your home’s specific needs and expert recommendations tailored just for you by our experienced team`
+      : "Hi there, receive a customized assessment of your home’s specific needs and expert recommendations tailored just for you by our experienced team";
 
   const heroH1 = contractor.content.hero_h1 || "Building Better Spaces for Better Living";
   const heroLede = contractor.content.hero_lede || defaultLede;
@@ -160,7 +157,7 @@ const Hero = () => {
             <BlurFade delay={4 * 0.25} yOffset={0}
               className="text-sm md:text-base lg:text-lg text-white/80 text-left pointer-events-none"
             >
-              {firstnameParam ? `Hi ${firstnameParam}! ` : ''}{subheadingText1}
+              {firstname ? `Hi ${firstname}! ` : ''}{subheadingText1}
             </BlurFade>
 
             <BlurFade delay={6 * 0.25} yOffset={0} className="mt-5 lg:mt-8 flex flex-col items-start gap-2 sm:flex-row sm:gap-3">
@@ -172,7 +169,7 @@ const Hero = () => {
         </div>
       </div>
       {/* render promomodal if concept param exists and is not empty */}
-      { conceptParam && conceptParam !== '' && (
+      { form.concept && form.concept !== '' && (
         <Dialog open={true}>
           <DialogTitle></DialogTitle>
           <PromoModal onButtonClick={handleButtonClick} />

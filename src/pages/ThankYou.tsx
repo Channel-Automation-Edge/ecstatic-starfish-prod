@@ -8,51 +8,12 @@ import NavBar from '@/components/NavBar';
 import { AppContext } from '../context/AppContext';
 import Footer from '@/components/Footer';
 import BlurFade from '@/components/ui/blur-fade';
-import HeroVideoDialog from '@/components/ui/hero-video-dialog';
-import Bathtub from '@/components/icons/Bathtub';
-import Trowel from '@/components/icons/Trowel';
-import Closet from '@/components/icons/Closet';
-import Plumbing from '@/components/icons/Plumbing';
-import Deck from '@/components/icons/Deck';
-import Doors from '@/components/icons/Doors';
-import Fence from '@/components/icons/Fence';
-import Flooring from '@/components/icons/Floor';
-import Garage from '@/components/icons/Garage';
-import Gutter from '@/components/icons/Gutter';
-import Foundation from '@/components/icons/Foundation';
-import Kitchen from '@/components/icons/Kitchen';
-import Roofing from '@/components/icons/Roofing';
-import Siding from '@/components/icons/Siding';
-import Shower from '@/components/icons/Shower';
-import Windows from '@/components/icons/Windows';
-import { InteractiveHoverButton } from '@/components/ui/interactive-hover-button';
-import Solar from '@/components/icons/Solar';
-
-// Icon mapping
-const iconMapping: Record<string, JSX.Element> = {
-  'Bath': <Bathtub />,
-  'Basement Waterproofing': <Trowel />,
-  'Closet': <Closet />,
-  'Plumbing': <Plumbing />,
-  'Deck': <Deck />,
-  'Doors': <Doors />,
-  'Fence': <Fence />,
-  'Flooring': <Flooring />,
-  'Garage': <Garage />,
-  'Gutters': <Gutter />,
-  'Foundation': <Foundation />,
-  'Kitchen': <Kitchen />,
-  'Roofing': <Roofing />,
-  'Siding': <Siding />,
-  'Shower': <Shower />,
-  'Windows': <Windows />,
-  'Solar': <Solar />,
-  // Add more mappings as needed
-};
+// import HeroVideoDialog from '@/components/ui/hero-video-dialog';
+import IconComponent from '@/hooks/IconComponent';
 
 const ThankYou: React.FC = () => {
   const appContext = useContext(AppContext);
-  if (!appContext || !appContext.contractor || !appContext.services) {
+  if (!appContext ) {
     return null; // Handle the case where data is not loaded yet
   }
   const navigate = useNavigate();
@@ -80,31 +41,10 @@ const ThankYou: React.FC = () => {
     };
   }, [navigate]);
 
-  // useEffect(() => {
-  //   const fetchServiceDetails = async () => {
-  //     const { data, error } = await supabase
-  //       .from('Services')
-  //       .select('photo, name')
-  //       .eq('id', selectedService)
-  //       .single();
-      
-  //     if (error) {
-  //       console.error('Error fetching service details:', error);
-  //     } else {
-  //       setServicePhoto(data.photo);
-  //       setServiceName(data.name);
-  //     }
-  //   };
-  
-  //   if (selectedService) {
-  //     fetchServiceDetails();
-  //   }
+  if (!appContext.selectedService) {
+    return null;
+  }
 
-  //   setFormattedPhone(formatPhoneNumber(phone || ''));
-
-  // }, [phone]);
-
-  
   
 
   const formatDate = (dateString: any) => {
@@ -179,9 +119,7 @@ const ThankYou: React.FC = () => {
               Thank you for booking with us! Your appointment has been successfully confirmed. You'll receive a confirmation email with all the details shortly. We look forward to seeing you!
             </BlurFade>
 
-            <BlurFade delay={4 * 0.20} yOffset={0} className="mt-5 lg:mt-8 flex flex-col items-start gap-2 sm:flex-row sm:gap-3"> 
-              <InteractiveHoverButton className='bg-accentColor text-white border-transparent text-sm rounded-lg py-3' onClick={handleGoHome}>Go to Home Page</InteractiveHoverButton>
-            </BlurFade>
+
           </div>
         </div>
       </div>
@@ -214,10 +152,10 @@ const ThankYou: React.FC = () => {
                     </div>
                     <hr className='mb-4'></hr>
                     <div className="flex items-center mb-4 ml-4 md:ml-8 min-w-52">
-                    <div className="w-14 h-14">{iconMapping[selectedService.services.name]}</div>
+                    <IconComponent name={selectedService.name || selectedService.services.name} className="w-14 h-14" />
                       <div className="flex flex-wrap justify-between flex-grow">
                         <h3 className="text-lg font-medium text-gray-800 dark:text-white pl-6 pr-4">
-                          {selectedService.services.name} {form.serviceSpecification ? form.serviceSpecification : 'Service'}
+                          {selectedService.name || selectedService.services.name} {form.serviceSpecification ? form.serviceSpecification : 'Service'}
                         </h3>
                       </div>
                     </div>
@@ -308,7 +246,7 @@ const ThankYou: React.FC = () => {
         <HowItWorks />
         
         {/* video  */}
-        <BlurFade delay={6 * 0.15} inView yOffset={0} className="relative">
+        {/* <BlurFade delay={6 * 0.15} inView yOffset={0} className="relative">
           <HeroVideoDialog
             className="dark:hidden block"
             animationStyle="from-center"
@@ -323,7 +261,7 @@ const ThankYou: React.FC = () => {
             thumbnailSrc="images/howto_thumbnail.jpg"
             thumbnailAlt="How To Video"
           />
-        </BlurFade>        
+        </BlurFade>         */}
 
 
       </div>

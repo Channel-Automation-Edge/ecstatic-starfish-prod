@@ -35,6 +35,7 @@ function App() {
     window.HSStaticMethods.autoInit();
   }, [location.pathname]);
 
+  // fetch initial data
   useEffect(() => {
     const fetchInitialData = async () => {
       const storedContractor = localStorage.getItem('contractor');
@@ -102,6 +103,7 @@ function App() {
     fetchInitialData();
   }, []);
 
+  // fetch concept if conceptId is present
   useEffect(() => {
     const fetchConcepts = async () => {
       if (conceptId) {
@@ -160,6 +162,7 @@ function App() {
     fetchZip();
   }, [user.zip]);
 
+  // Set the document title and favicon
   useEffect(() => {
     if (contractor) {
       // Update the document title
@@ -178,6 +181,7 @@ function App() {
     }
   }, [contractor]);
 
+  // Log context data
   useEffect(() => {
     console.log('contractor', appContext.contractor);
     console.log('services', appContext.services);
@@ -210,7 +214,6 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/:slug' element={<Home />} />
-        <Route path='/stl/:slug' element={<Home />} />
         <Route path='/request-quotes/:slug' element={<RequestQuote />} />
         <Route path='/cookie-policy/:slug' element={<CookiePolicy />} />
         <Route path='/privacy-policy/:slug' element={<PrivacyPolicy />} />

@@ -13,6 +13,7 @@ interface UserData {
   state: string | null;
   userNs: string | null;
   timezone: string | null;
+  stl: boolean;
 }
 
 interface FormData {
@@ -73,6 +74,7 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
     state: null,
     userNs: null,
     timezone: null,
+    stl: false,
   });
 
   const [form, setForm] = useState<FormData>({
@@ -92,10 +94,17 @@ const AppContextProvider: React.FC<AppContextProviderProps> = ({ children }) => 
   const [services, setServices] = useState<any>(null);
   const [locations, setLocations] = useState<any>(null);
 
-useEffect(() => {
-  const params = new URLSearchParams(location.search);
-  setUser(prevUser => ({ ...prevUser, userNs: params.get('user_ns') }));
-}, [location.search]);
+  // Initialize data from URL parameters
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    setUser(prevUser => ({ ...prevUser, userNs: params.get('user_ns'), stl: params.get('stl') === 'true' || params.get('stl') === '1', }));
+  }, [location.search]);
+
+  // Utility function to capitalize the first letter of each word
+  const capitalizeWords = (str: string | null) => {
+    if (!str) return '';
+    return str.replace(/\b\w/g, char => char.toUpperCase());
+  };
 
   // Initialize cookiesAccepted from local storage
   useEffect(() => {
@@ -110,18 +119,6 @@ useEffect(() => {
   }, []);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-    const storedForm = localStorage.getItem('form');
-    if (storedForm) {
-      setForm(JSON.parse(storedForm));
-    }
-    const storedSelectedService = localStorage.getItem('selectedService');
-    if (storedSelectedService) {
-      setSelectedService(JSON.parse(storedSelectedService));
-    }
     const storedContractor = localStorage.getItem('contractor');
     if (storedContractor) {
       setContractor(JSON.parse(storedContractor));
@@ -134,6 +131,75 @@ useEffect(() => {
     if (storedLocations) {
       setLocations(JSON.parse(storedLocations));
     } 
+
+    const params = new URLSearchParams(location.search);
+    setUser(prevUser => ({
+      ...prevUser,
+      stl: params.get('stl') === 'true',
+    }));
+
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    const storedForm = localStorage.getItem('form');
+    if (storedForm) {
+      setForm(JSON.parse(storedForm));
+    }
+    const storedSelectedService = localStorage.getItem('selectedService');
+    if (storedSelectedService) {
+      setSelectedService(JSON.parse(storedSelectedService));
+    }
+
+    const storedFormId = storedForm ? JSON.parse(storedForm)?.formId : null;
+
+    // if form.formId is empty or does not exist in local storage, clear user, form, and selectedService from local storage and reinitialize values based on url params, otherwise initialize values based on local storage
+    if (storedFormId === null || storedFormId === undefined || storedFormId === '') {
+      console.log('formId is null or empty');
+      localStorage.removeItem('user');
+      localStorage.removeItem('form');
+      localStorage.removeItem('selectedService');
+
+      const params = new URLSearchParams(location.search);
+      setUser(prevUser => ({
+        ...prevUser,
+        userNs: params.get('user_ns'),
+        firstname: capitalizeWords(params.get('firstname')),
+        lastname: capitalizeWords(params.get('lastname')),
+        email: params.get('email'),
+        phone: params.get('phone'),
+        address1: capitalizeWords(params.get('address1')),
+        address2: capitalizeWords(params.get('address2')),
+        city: capitalizeWords(params.get('city')),
+        state: params.get('state'),
+        zip: params.get('zip'),
+        timezone: params.get('timezone'),
+        stl: params.get('stl') === 'true' || params.get('stl') === '1',
+      }));
+
+      setForm(prevForm => ({
+        ...prevForm,
+        serviceSpecification: capitalizeWords(params.get('service_specification')),
+        promo: params.get('promo'),
+        date: params.get('adate'),
+        time: params.get('atime'),
+        concept: params.get('concept'),
+      }));
+    } else {
+      console.log('formId is not null or empty', storedFormId);
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+      const storedForm = localStorage.getItem('form');
+      if (storedForm) {
+        setForm(JSON.parse(storedForm));
+      }
+      const storedSelectedService = localStorage.getItem('selectedService');
+      if (storedSelectedService) {
+        setSelectedService(JSON.parse(storedSelectedService));
+      }
+    }
     
   }, [setUser, setForm, setSelectedService, setContractor, setServices, setLocations]);
   

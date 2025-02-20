@@ -110,7 +110,7 @@ const Step2Schedule: React.FC<Step2ScheduleProps> = ({ onNext, onReset, onBack }
     const currentDay = days[dayOfWeek];
 
     setSelectedDayTimeSlots(timeSlots[currentDay]);
-  }, [timeSlots]);
+  }, []);
 
   return (
     <div className="container-form">

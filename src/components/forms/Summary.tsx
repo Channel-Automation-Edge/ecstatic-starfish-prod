@@ -1,22 +1,6 @@
 "use client";
 import React, { useContext, useState } from 'react';
 import { AppContext } from '@/context/AppContext';
-import Bathtub from '@/components/icons/Bathtub';
-import Trowel from '@/components/icons/Trowel';
-import Closet from '@/components/icons/Closet';
-import Plumbing from '@/components/icons/Plumbing';
-import Deck from '@/components/icons/Deck';
-import Doors from '@/components/icons/Doors';
-import Fence from '@/components/icons/Fence';
-import Flooring from '@/components/icons/Floor';
-import Garage from '@/components/icons/Garage';
-import Gutter from '@/components/icons/Gutter';
-import Foundation from '@/components/icons/Foundation';
-import Kitchen from '@/components/icons/Kitchen';
-import Roofing from '@/components/icons/Roofing';
-import Siding from '@/components/icons/Siding';
-import Shower from '@/components/icons/Shower';
-import Windows from '@/components/icons/Windows';
 import {central} from '@/lib/supabaseClient';
 import { Dialog, DialogContent,
   DialogDescription,
@@ -29,30 +13,7 @@ import { Dialog, DialogContent,
 import { Button } from '@/components/ui/button';
 import ConfirmCheck from '../icons/ConfirmCheck';
 import NavButtons from '../ui/navButtons';
-import Solar from '../icons/Solar';
-
-
-// Icon mapping
-const iconMapping: Record<string, JSX.Element> = {
-  'Bath': <Bathtub />,
-  'Basement Waterproofing': <Trowel />,
-  'Closet': <Closet />,
-  'Plumbing': <Plumbing />,
-  'Deck': <Deck />,
-  'Doors': <Doors />,
-  'Fence': <Fence />,
-  'Flooring': <Flooring />,
-  'Garage': <Garage />,
-  'Gutters': <Gutter />,
-  'Foundation': <Foundation />,
-  'Kitchen': <Kitchen />,
-  'Roofing': <Roofing />,
-  'Siding': <Siding />,
-  'Shower': <Shower />,
-  'Windows': <Windows />,
-  'Solar': <Solar />,
-  // Add more mappings as needed
-};
+import IconComponent from '@/hooks/IconComponent';
 
 // Define props interface
 interface SummaryProps {
@@ -236,12 +197,14 @@ const Summary: React.FC<SummaryProps> = ({ onNext, onBack, onReset }) => {
                     </div>
 										<hr className='mb-4'></hr>
 										<div className="flex items-center mb-4 ml-4 md:ml-8 min-w-52">
-                    <div className="w-14 h-14">{iconMapping[selectedService.services.name]}</div>
+                    <div className="flex items-center">
+                      <IconComponent name={selectedService.name || selectedService.services.name} className="w-14 h-14" />
                       <div className="flex flex-wrap justify-between flex-grow">
                         <h3 className="text-lg font-medium text-gray-800 dark:text-white pl-6 pr-4">
-                          {selectedService.services.name} {form.serviceSpecification ? form.serviceSpecification : 'Service'}
+                          {selectedService.name || selectedService.services.name} {form.serviceSpecification || "Service"}
                         </h3>
                       </div>
+                    </div>
                     </div>
                     {/* Schedule */}
                     {/* <hr className='mb-4'></hr>
